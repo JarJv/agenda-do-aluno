@@ -5,6 +5,7 @@ import './assets/style.css';
 import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
 import NavTop from './components/NavTop.tsx'
+import NavBottom from './components/NavBottom.tsx'
 
 let router = createBrowserRouter([
   {
@@ -19,9 +20,10 @@ let router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className='max-w-[414px] min-h-screen bg-(--c1)'>
-      <NavTop />
+    <div className='min-w-screen min-h-screen bg-(--c1)'>
+      {(location.pathname !== "/login" && location.pathname !== "/cadastro") && <NavTop />}
       <RouterProvider router={router}/>
+      {(location.pathname !== "/login" && location.pathname !== "/cadastro") && <NavBottom />}
     </div>
   </StrictMode>,
 )
