@@ -21,9 +21,9 @@ let router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <div className='min-w-screen min-h-screen bg-(--c1)'>
-      {(location.pathname !== "/login" && location.pathname !== "/cadastro") && <NavTop />}
+      {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/inicio") && <NavTop />}
       <RouterProvider router={router}/>
-      {(location.pathname !== "/login" && location.pathname !== "/cadastro") && <NavBottom />}
+      {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/inicio") && <NavBottom />}
     </div>
   </StrictMode>,
 )
