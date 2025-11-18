@@ -5,6 +5,7 @@ import './assets/style.css';
 import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
 import Notas from './pages/Notas.tsx'
+import Configuracoes from './pages/Configuracoes.tsx'
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
 
@@ -20,6 +21,10 @@ let router = createBrowserRouter([
   {
     path: "/notas",
     element: <Notas />
+  },
+  {
+    path: "/configuracoes",
+    element: <Configuracoes />
   }
 ]);
 

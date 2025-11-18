@@ -10,4 +10,4 @@ export default function BlueFilledButton({children}:ButtonProps){
     return(
         <button className='rounded-full px-8 py-2 text-white bg-(--c2) font-bold'>{children}</button>
     )
-}
+} 

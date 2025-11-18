@@ -33,7 +33,7 @@ export default function Notas(){
 
     return(
         <main className='px-10 py-8 flex flex-col gap-y-8'>
-            <section className='flex text-white gap-x-2 font-extrabold items-end'>
+            <section className='flex text-white gap-x-2 font-extrabold items-end justify-center'>
                 <h1 className='text-3xl'>NOTAS</h1>
                 <SquarePenIcon size={32}/>
             </section>
