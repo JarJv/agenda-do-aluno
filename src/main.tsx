@@ -6,6 +6,7 @@ import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
+import Perfil from './pages/Perfil.tsx'
 
 let router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ let router = createBrowserRouter([
   {
     path: "/calendario",
     element: <Calendario />
+  },
+  {
+    path: "/perfil",
+    element: <Perfil/>
   }
 ]);
 
