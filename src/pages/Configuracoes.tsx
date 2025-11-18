@@ -1,11 +1,23 @@
 import '../assets/style.css'
-import {Gear, DownloadSimple, LockOpen, ArrowCounterClockwise} from '@phosphor-icons/react';
-import SettingButton from '../components/SettingButton.tsx'
+import {Gear, DownloadSimple, LockOpen, ArrowCounterClockwise, CheckCircle, XCircle} from '@phosphor-icons/react';
+import SettingButton from '../components/SettingButton.tsx';
+import ToastSuccess from '../components/ToastSuccess.tsx';
+import { useState } from 'react';
 
 export default function Configuracoes(){
+    const [toast, setToast] = useState(false);
+
+    function doToast(){
+        setToast(true);
+
+        setTimeout(()=>{
+            setToast(false);
+        }, 3000);
+    }
+
     return(
         <main className='px-10 py-8 flex flex-col gap-y-8'>
-            <section className='flex text-white gap-x-2 font-extrabold items-end justify-center'>
+            <section className='flex text-white gap-x-2 font-extrabold items-end justify-center' onClick={()=>{doToast()}}>
                 <h1 className='text-3xl'>CONFIGURAÇÃO</h1>
                 <Gear size={32} weight='fill'/>
             </section>
@@ -23,6 +35,7 @@ export default function Configuracoes(){
                     Resetar informações
                 </SettingButton>
             </section>
+            {toast && <ToastSuccess/>}
         </main>
     )
 }

@@ -26,5 +26,6 @@ export default function SettingButton({children}:ButtonProps){
                             {children}
                         </div>
                     </section>
+                    
     )
 }
