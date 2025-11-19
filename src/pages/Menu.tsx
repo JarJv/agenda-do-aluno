@@ -12,7 +12,7 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 import { MenuItem } from "../components/MenuItem";
-import { BordedButton } from '../components/BordedButton';
+import  BordedButton from '../components/BordedButton';
 
 export default function Menu() {
   return (
