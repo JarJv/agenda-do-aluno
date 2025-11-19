@@ -1,71 +1,105 @@
-import { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import '../assets/style.css';
-import BlueFilledButtom from '../components/BlueFilledButton';
-import BordedButton from '../components/BordedButton.tsx';
-import { CalendarDots, NotePencil } from "@phosphor-icons/react";
+import { useState } from "react";
+import { CalendarDots, NotePencil, CaretLeft, CaretRight } from "@phosphor-icons/react";
+import BordedButton from "../components/BordedButton";
 
 export default function Calendario() {
-  const [date, setDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  const naoLetivos = ["2025-03-10", "2025-03-15"];
+  const faltas = ["2025-03-07"];
 
   const meses = [
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
   ];
 
-  const ano = date.getFullYear();
-  const mesAtual = meses[date.getMonth()];
+  const ano = currentDate.getFullYear();
+  const mes = currentDate.getMonth();
 
+  const diasNoMes = new Date(ano, mes + 1, 0).getDate();
+  const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
 
+  const alterarMes = (direcao: number) => {
+    setCurrentDate(new Date(ano, mes + direcao, 1));
+  };
 
-  // Exemplo de datas especiais
-  const naoLetivos = ['2025-03-10', '2025-03-15'];
-  const faltas = ['2025-03-05'];
+  const gerarDias = () => {
+    const dias = [];
+    for (let i = 1; i <= diasNoMes; i++) {
+      const dataStr = `${ano}-${String(mes + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
 
-  const tileClassName = ({ date }: { date: Date }) => {
-    const dataString = date.toISOString().split('T')[0];
-    if (naoLetivos.includes(dataString)) return 'bg-red-600 text-white rounded-xl';
-    if (faltas.includes(dataString)) return 'border-2 border-yellow-300 text-white rounded-xl';
-    return '';
+      let estilo = "px-3 py-2 rounded-lg text-white";
+
+      if (naoLetivos.includes(dataStr)) estilo += " bg-red-600";
+      else if (faltas.includes(dataStr)) estilo += " border-2 border-yellow-300";
+      else estilo += " hover:bg-gray-700";
+
+      dias.push(
+        <div key={i} className={estilo}>
+          {i}
+        </div>
+      );
+    }
+    return dias;
   };
 
   return (
-    <div className="p-6 text-center">
-        <h1 className='text-white font-bold'>CALENDÁRIO <CalendarDots size={32} weight="bold" color="#ffffff" /></h1>
+    <div className="min-h-screen bg-[#0d1435] text-white flex flex-col items-center p-6">
 
-      <div className="mb-4">
-        <BlueFilledButtom>{mesAtual}</BlueFilledButtom>
+      {/* Título */}
+      <h1 className="text-2xl font-bold flex items-center gap-2 mb-6">
+        CALENDÁRIO <CalendarDots size={32} weight="bold" color="#ffffff" />
+      </h1>
+
+      {/* Seleção de Mês */}
+      <div className="flex items-center gap-4 mb-6">
+        <button onClick={() => alterarMes(-1)}>
+          <CaretLeft size={24} weight="bold" />
+        </button>
+        <span className="px-6 py-2 bg-indigo-500 rounded-full font-semibold">
+          {meses[mes]} {ano}
+        </span>
+        <button onClick={() => alterarMes(1)}>
+          <CaretRight size={24} weight="bold" />
+        </button>
       </div>
 
-     
-
       {/* Calendário */}
-      <div className="flex flex-col items-center">
-        <div className="bg-gray-800 text-white rounded-xl shadow-lg p-4">
-          <Calendar
-            value={date}
-            calendarType="gregory"
-            locale="pt-BR"
-            tileClassName={tileClassName}
-            className="react-calendar bg-gray-800 text-white border-20 rounded-xl [&_*]:text-black"
-            activeStartDate={date}
-            view="month"  
-            minDetail="month" 
-          />
+      <div className="bg-[#2e3348] rounded-xl p-6 shadow-lg">
+        <div className="grid grid-cols-7 text-center font-bold mb-3 text-gray-300">
+          <div>D</div>
+          <div>S</div>
+          <div>T</div>
+          <div>Q</div>
+          <div>Q</div>
+          <div>S</div>
+          <div>S</div>
+        </div>
+
+        <div className="grid grid-cols-7 gap-2">
+          {Array.from({ length: primeiroDiaSemana }).map((_, i) => (
+            <div key={i}></div>
+          ))}
+          {gerarDias()}
         </div>
       </div>
 
-      <div id="legenda"className="mt-6 flex justify-center gap-6">
-        <p className="text-green-400 text-lg font-bold">Letivo</p>
-        <p className="text-yellow-300 text-lg font-bold">Falta</p>
-        <p className="text-red-600 text-lg font-bold">Não letivo</p>
+      {/* Legenda */}
+      <div className="flex gap-6 mt-6">
+        <p className="text-green-400">● Letivo</p>
+        <p className="text-yellow-300">● Falta</p>
+        <p className="text-red-500">● Não letivo</p>
       </div>
-      
-      <div> 
-        <BordedButton>Gravar</BordedButton>
-        <button><NotePencil/></button>
-      </div>   
+
+      {/* Botões Ações */}
+      <div className="mt-8 flex gap-6">
+         <BordedButton>Gravar</BordedButton>
+          
+        
+        <button className="p-3 rounded-xl hover:bg-white hover:text-black transition">
+          <NotePencil size={28} />
+        </button>
+      </div>
     </div>
   );
 }
