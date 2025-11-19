@@ -35,7 +35,7 @@ export default function Horario(){
                 <div 
                   key={index} 
                   className='flex-column items-center px-10 p-1 font-black' 
-                  style={{ width: "95%" }}
+                  style={{ width: "98%" }}
                 >
                     {/* Cabeçalho clicável */}
                     <div
@@ -81,8 +81,8 @@ export default function Horario(){
             ))}
 
             <div className='flex items-center gap-60 px-10 p-6'> 
-                <BordedButton>Gravar</BordedButton>
                 <button><NotePencilIcon size={40} color="#fff"/></button>
+                <BordedButton>Gravar</BordedButton>
             </div>  
         </div>
     );

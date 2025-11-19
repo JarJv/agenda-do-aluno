@@ -47,8 +47,8 @@ export default function Calendario() {
     <div className="min-h-screen bg-[#0d1435] text-white flex flex-col items-center p-6">
 
       {/* Título */}
-      <h1 className="text-2xl font-bold flex items-center gap-2 mb-6">
-        CALENDÁRIO <CalendarDots size={32} weight="bold" color="#ffffff" />
+      <h1 className="text-4xl font-black uppercase flex items-center gap-2 mb-6">
+        CALENDÁRIO <CalendarDots size={40} weight="bold" color="#ffffff" />
       </h1>
 
       {/* Seleção de Mês */}
@@ -86,9 +86,9 @@ export default function Calendario() {
 
       {/* Legenda */}
       <div className="flex gap-6 mt-6">
-        <p className="text-green-400">● Letivo</p>
-        <p className="text-yellow-300">● Falta</p>
-        <p className="text-red-500">● Não letivo</p>
+        <p className="text-green-400 font-black">● Letivo</p>
+        <p className="text-yellow-300 font-black">● Falta</p>
+        <p className="text-red-500 font-black">● Não letivo</p>
       </div>
 
       {/* Botões Ações */}
