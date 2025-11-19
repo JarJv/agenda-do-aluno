@@ -32,16 +32,13 @@ export default function Anotacoes() {
           />
 
         </div>
+      </div>
+      <div className="fixed bottom-30 left-0 w-full px-8 flex justify-between items-center">
+        <button className="w-12 h-12 rounded-full border-2 border-white text-white flex items-center justify-center">
+          <Plus size={28} />
+        </button>
 
-        <div className="flex justify-between items-center mt-10 px-8">
-          <button className="w-12 h-12 rounded-full border-2 border-white text-white flex items-center justify-center">
-            <Plus size={28} />
-          </button>
-
-        <BordedButton>
-            Gravar
-        </BordedButton>
-        </div>
+        <BordedButton>Gravar</BordedButton>
       </div>
     </div>
   );
