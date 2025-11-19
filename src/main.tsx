@@ -6,6 +6,11 @@ import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
 import Notas from './pages/Notas.tsx'
 import Configuracoes from './pages/Configuracoes.tsx'
+import { Inicio } from './pages/Inicio'; 
+import Login from './pages/Login.tsx'
+import Cadastro from './pages/Cadastro.tsx'
+import RecuperarSenha from './pages/RecuperarSenha.tsx';
+
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
 
@@ -25,7 +30,23 @@ let router = createBrowserRouter([
   {
     path: "/configuracoes",
     element: <Configuracoes />
-  }
+  },
+  {
+    path: "/inicio",
+    element: <Inicio />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/cadastro",
+    element: <Cadastro />
+  },
+  {
+    path: "/recuperar-senha",
+    element: <RecuperarSenha />
+  },
 ]);
 
 createRoot(document.getElementById('root')!).render(
