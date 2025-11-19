@@ -8,6 +8,9 @@ import Notas from './pages/Notas.tsx'
 import Configuracoes from './pages/Configuracoes.tsx'
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
+import Alunos from './pages/Alunos.tsx'
+import Professores from './pages/Professores.tsx'
+
 
 let router = createBrowserRouter([
   {
@@ -25,7 +28,17 @@ let router = createBrowserRouter([
   {
     path: "/configuracoes",
     element: <Configuracoes />
+  },
+  {
+    path:'/alunos',
+    element:<Alunos/>
+  },
+  {
+    path:'/professores',
+    element:<Professores/>
   }
+
+
 ]);
 
 createRoot(document.getElementById('root')!).render(
