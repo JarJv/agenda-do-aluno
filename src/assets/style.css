@@ -5,3 +5,7 @@
     --c2:#797FF2;
     --c3:#46498C;
 }
+
+html, body {
+    overflow-x: hidden;
+}

@@ -39,6 +39,7 @@ export default function CirculoProgresso({
                     cy={tamanho / 2}
                     strokeDasharray={circumferencia}
                     strokeDashoffset={offset}
+                    transform={`rotate(-90 ${tamanho/2} ${tamanho/2})`}
                 />
 
                 {/*Texto de dentro*/}
@@ -47,7 +48,7 @@ export default function CirculoProgresso({
                     y='50%'
                     textAnchor='middle'
                     dy='.3em'
-                    className="fill-white text-xl font-bold">
+                    className="fill-white text-xl font-bold cursor-default">
                     {porcentagem}%
                 </text>
             
