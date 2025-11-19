@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './assets/style.css';
 import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
+import Horario from './pages/Horario.tsx'
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
 
@@ -15,6 +16,10 @@ let router = createBrowserRouter([
   {
     path: "/calendario",
     element: <Calendario />
+  },
+  {
+    path: "/horario",
+    element: <Horario />
   }
 ]);
 
