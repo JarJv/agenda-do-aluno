@@ -1,9 +1,10 @@
 import { Pencil, Trash, Plus, NotebookPen} from "lucide-react";
 import {Notepad} from "@phosphor-icons/react";
-import BordedButton from "../components/BordedButton";
+import BordedButton from "../components/BordedButton"
 
 export default function Anotacoes() {
   return (
+    
     <div className="min-h-screen bg-[#141640] flex flex-col">
 
       <div className="p-6 flex-1">
@@ -48,7 +49,7 @@ export default function Anotacoes() {
 
 function AnnotationCard({ title, date }: { title: string; date: string }) {
   return (
-    <div className="bg-[#323558] p-4 rounded-lg flex justify-between items-center">
+    <div className="bg-[#46498C] p-4 rounded-lg flex justify-between items-center">
 
       <div className="ali flex items-center gap-4">
         <div>
