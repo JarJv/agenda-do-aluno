@@ -7,6 +7,7 @@ import Calendario from './pages/Calendario.tsx'
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
 import Perfil from './pages/Perfil.tsx'
+import Anotacoes from './pages/Anotações.tsx';
 
 let router = createBrowserRouter([
   {
@@ -20,7 +21,12 @@ let router = createBrowserRouter([
   {
     path: "/perfil",
     element: <Perfil/>
+  },
+  {
+    path: "/anotacoes",
+    element: <Anotacoes/>
   }
+
 ]);
 
 createRoot(document.getElementById('root')!).render(

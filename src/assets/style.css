@@ -1,8 +1,39 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 
 :root{
     --c1:#141640;
     --c2:#797FF2;
     --c3:#46498C;
-    --c4:#323558;
+    --font: font-family: "Montserrat", sans-serif;
 }
+
+.Titulo_Inicio {
+    font-family: var(--font);
+    font-size: 40px;
+    font-weight: 900;
+    color: #fff
+}
+
+.Titulo {
+    font-family: var(--font);
+    font-size: 34px;
+    font-weight: 800;
+    color: #fff
+}
+
+.FontBold{
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff
+}
+
+.FontePadrao {
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: normal;
+    color: #fff
+}
+
