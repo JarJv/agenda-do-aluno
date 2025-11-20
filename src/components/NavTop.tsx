@@ -10,7 +10,7 @@ function NavTop() {
   const [open, setOpen] = useState(false);
 
     return (
-       <div className="relative w-screen">
+       <div className="relative w-full px-2">
             <nav className="bg-(--c2) w-full py-4 px-5 flex items-center rounded-none justify-between">
                 <p className="text-white text-lg">Bem-vindo, {""}
                     <label id="nomeAluno" className="font-bold">
@@ -18,7 +18,7 @@ function NavTop() {
                     </label>
                 </p>
                 <button onClick={() => setOpen(true)}>
-                <Menu className="text-white w-6 h-6" />
+                <Menu className="text-white w-6 h-6 cursor-pointer" />
                 </button>
             </nav>
 
@@ -31,7 +31,7 @@ function NavTop() {
                 <div className="flex justify-between items-center p-4 border-b border-white/20">
                     <h2 className="text-lg font-semibold">Menu</h2>
                     <button onClick={() => setOpen(false)}>
-                    <X className="w-6 h-6" />
+                    <X className="w-6 h-6 cursor-pointer" />
                     </button>
                 </div>
 
@@ -40,7 +40,7 @@ function NavTop() {
                     
                     <div className='has-checked:bg-indigo-50 has-checked:text-indigo-900 has-checked:ring-indigo-200 flex items-center py-1 gap-2 bg-white rounded-full justify-center'>
                         <House size={28} color="#797FF2" />
-                        <a href="/"><li className="text-(--c2) font-medium">Início</li></a>
+                        <a href="/inicio"><li className="text-(--c2) font-medium">Início</li></a>
                     </div>
 
                     <div className='has-checked:bg-indigo-50 has-checked:text-indigo-900 has-checked:ring-indigo-200 flex items-center py-1 gap-2 justify-center'>

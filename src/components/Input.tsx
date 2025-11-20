@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string; // Para estilos extras
 }
 
-// forwardRef para que possamos passar uma 'ref' para o input,
+// forwardRef para que possamos passar uma 'ref' para o input
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, id, name, type = 'text', className = '', ...props }, ref) => {
     
@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     // Estilos para o estado padrão 
     const defaultStyles = 'bg-gray-800 border-transparent';
 
-    // Estilos para o estado de foco (baseado na sua 2ª imagem)
+    // Estilos para o estado de foco
     const focusStyles =
       'focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50';
 
