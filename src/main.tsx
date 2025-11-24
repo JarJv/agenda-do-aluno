@@ -14,6 +14,11 @@ import RecuperarSenha from './pages/RecuperarSenha.tsx';
 import Frequencia from './pages/Frequencia.tsx';
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
+import Horario from './pages/Horario.tsx';
+import Professores from './pages/Professores.tsx';
+import Alunos from './pages/Alunos.tsx';
+import Anotacoes from './pages/Anotações.tsx';
+import Perfil from './pages/Perfil.tsx';
 
 let router = createBrowserRouter([
   {
@@ -39,20 +44,44 @@ let router = createBrowserRouter([
   {
     path: "/menu",
      element: <Menu />
-    
   },
   {
-        path: "/login",
+      path: "/login",
     element: <Login/>
   },
   {
-           path: "/cadastro",
+    path: "/cadastro",
     element: <Cadastro/>
   },
   {
-              path: "/recuperar-senha",
+    path: "/recuperar-senha",
     element: <RecuperarSenha/>
-  }
+  },
+  {
+    path: "/menu",
+    element: <Menu/>
+  },
+  {
+    path: "/horario",
+    element: <Horario/>
+  },
+    {
+    path: "/professores",
+    element: <Professores/>
+  },
+    {
+    path: "/alunos",
+    element: <Alunos/>
+  },
+  {
+    path: "/anotacoes",
+    element: <Anotacoes/>
+  },
+  {
+    path: "/perfil",
+    element: <Perfil/>
+  },
+
 ]);
 
 createRoot(document.getElementById('root')!).render(

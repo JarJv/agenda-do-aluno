@@ -40,7 +40,7 @@ function NavTop() {
                     
                     <div className='has-checked:bg-indigo-50 has-checked:text-indigo-900 has-checked:ring-indigo-200 flex items-center py-1 gap-2 bg-white rounded-full justify-center'>
                         <House size={28} color="#797FF2" />
-                        <a href="/inicio"><li className="text-(--c2) font-medium">Início</li></a>
+                        <a href="/menu"><li className="text-(--c2) font-medium">Menu</li></a>
                     </div>
 
                     <div className='has-checked:bg-indigo-50 has-checked:text-indigo-900 has-checked:ring-indigo-200 flex items-center py-1 gap-2 justify-center'>

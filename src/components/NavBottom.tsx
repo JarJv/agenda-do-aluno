@@ -1,5 +1,6 @@
 import '../assets/style.css'
-import {House, PersonArmsSpread, SignOut} from '@phosphor-icons/react';
+import {House, SignOut} from '@phosphor-icons/react';
+import AccessibilityMenu from './AccessibilityMenu';
 
 export default function NavBottom(){
     return(
@@ -7,7 +8,7 @@ export default function NavBottom(){
             <nav className='flex justify-between items-center px-6 py-8'>
                 <SignOut color='#fff' size={32} weight='bold' className='transform duration-100 active:scale-120 cursor-pointer'/>
                 <House color='#fff' size={32} weight='fill' className='transform duration-100 active:scale-120 cursor-pointer'/>
-                <PersonArmsSpread color='#fff' size={32} weight='fill' className='transform duration-100 active:scale-120 cursor-pointer'/>
+                <AccessibilityMenu/>
             </nav>
         </div>
     )

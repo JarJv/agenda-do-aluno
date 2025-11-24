@@ -7,3 +7,35 @@
     --c4:#323558;
     --c5:#05061B;
 }
+
+.high-contrast {
+  filter: contrast(180%) brightness(1.2);
+}
+
+.Titulo_Inicio {
+    font-family: var(--font);
+    font-size: 40px;
+    font-weight: 900;
+    color: #fff
+}
+
+.Titulo {
+    font-family: var(--font);
+    font-size: 34px;
+    font-weight: 800;
+    color: #fff
+}
+
+.FontBold{
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff
+}
+
+.FontePadrao {
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: normal;
+    color: #fff
+}
