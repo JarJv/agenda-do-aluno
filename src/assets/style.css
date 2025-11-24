@@ -6,7 +6,13 @@
     --c1:#141640;
     --c2:#797FF2;
     --c3:#46498C;
+    --c4:#323558;
+    --c5:#05061B;
     --font: font-family: "Montserrat", sans-serif;
+}
+
+.high-contrast {
+  filter: contrast(180%) brightness(1.2);
 }
 
 .Titulo_Inicio {
@@ -36,4 +42,3 @@
     font-weight: normal;
     color: #fff
 }
-

@@ -4,29 +4,31 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './assets/style.css';
 import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
+import Notas from './pages/Notas.tsx';
+import Configuracoes from './pages/Configuracoes.tsx';
+import { Inicio } from './pages/Inicio'; 
+import Login from './pages/Login.tsx';
+import Cadastro from './pages/Cadastro.tsx';
+import RecuperarSenha from './pages/RecuperarSenha.tsx';
+
+import Frequencia from './pages/Frequencia.tsx';
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
-import Perfil from './pages/Perfil.tsx'
+import Horario from './pages/Horario.tsx';
+import Professores from './pages/Professores.tsx';
+import Alunos from './pages/Alunos.tsx';
 import Anotacoes from './pages/Anotações.tsx';
+import Perfil from './pages/Perfil.tsx';
 
 let router = createBrowserRouter([
   {
     path: "/",
-    element:<Menu/>
+    element:<Inicio/>
   },
   {
     path: "/calendario",
     element: <Calendario />
-  },
-  {
-    path: "/perfil",
-    element: <Perfil/>
-  },
-  {
-    path: "/anotacoes",
-    element: <Anotacoes/>
   }
-
 ]);
 
 createRoot(document.getElementById('root')!).render(
