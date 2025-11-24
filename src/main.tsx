@@ -19,6 +19,7 @@ import Professores from './pages/Professores.tsx';
 import Alunos from './pages/Alunos.tsx';
 import Anotacoes from './pages/Anotações.tsx';
 import Perfil from './pages/Perfil.tsx';
+import PerfilEditar from './pages/PerfilEditar.tsx';
 
 let router = createBrowserRouter([
   {
@@ -26,8 +27,60 @@ let router = createBrowserRouter([
     element:<Inicio/>
   },
   {
+    path: "/menu",
+    element: <Menu />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/cadastro",
+    element: <Cadastro />
+  },
+  {
+    path: "/recuperasenha",
+    element: <RecuperarSenha />
+  },
+  {
     path: "/calendario",
     element: <Calendario />
+  },
+  {
+    path: "/horario",
+    element: <Horario />
+  },
+  {
+    path: "/professores",
+    element: <Professores />
+  },
+  {
+    path: "/alunos",
+    element: <Alunos />
+  },
+  {
+    path: "/frequencia",
+    element: <Frequencia />
+  },
+  {
+    path: "/notas",
+    element: <Notas />
+  },
+  {
+    path: "/anotacao",
+    element: <Anotacoes />
+  },
+  {
+    path: "/perfil",
+    element: <Perfil />
+  },
+  {
+    path: "/perfileditar",
+    element: <PerfilEditar />
+  },
+  {
+    path: "/configuracao",
+    element: <Configuracoes />
   }
 ]);
 
