@@ -1,7 +1,9 @@
 import '../assets/style.css'
 import {useRef, useState, useEffect} from 'react';
 import {SquarePenIcon} from 'lucide-react'
-import {CaretLeft, CaretRight} from '@phosphor-icons/react'
+import {CaretLeft, CaretRight, Plus} from '@phosphor-icons/react'
+import BordedButton from '../components/BordedButton.tsx';
+
 
 export default function Notas(){
     const [index, setIndex] = useState(0);
@@ -67,13 +69,19 @@ export default function Notas(){
             </section>
             <section>
                 <div className='grid grid-flow-cols grid-cols-3 gap-2 text-white font-bold'>
-                    <article className='col-span-2 bg-(--c4) p-4 rounded-md flex justify-center items-center'>
+                    <article className='col-span-2 bg-(--c4) p-4 rounded-xl flex justify-center items-center'>
                         Integração e Entrega Contínua
                     </article>
-                    <article className='col-span-1 bg-(--c4) p-4 rounded-md flex justify-center items-center text-xl'>
+                    <article className='col-span-1 bg-(--c4) p-4 rounded-xl flex justify-center items-center text-xl'>
                         10.0
                     </article>
                 </div>
+            </section>
+            <section className='fixed bottom-30 left-0 w-full flex text-white gap-x-2 px-10 font-extrabold items-end justify-between'>
+                <button className='border-2 border-white rounded-full p-1.5 text-white font-bold cursor-pointer'>
+                    <Plus size={24}></Plus>
+                </button>
+                <BordedButton>Gravar</BordedButton>
             </section>
         </main>
     )

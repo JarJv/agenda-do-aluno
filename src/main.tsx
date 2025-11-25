@@ -18,8 +18,6 @@ import Alunos from './pages/Alunos.tsx'
 import Professores from './pages/Professores.tsx'
 
 import Horario from './pages/Horario.tsx';
-import Professores from './pages/Professores.tsx';
-import Alunos from './pages/Alunos.tsx';
 import Anotacoes from './pages/Anotações.tsx';
 import Perfil from './pages/Perfil.tsx';
 
@@ -51,8 +49,8 @@ let router = createBrowserRouter([
   {
     path:'/professores',
     element:<Professores/>
-  }
-
+  },
+  {
     path: "/menu",
      element: <Menu />
   },
