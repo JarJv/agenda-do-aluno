@@ -14,8 +14,7 @@ import RecuperarSenha from './pages/RecuperarSenha.tsx';
 import Frequencia from './pages/Frequencia.tsx';
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
-import Alunos from './pages/Alunos.tsx'
-import Professores from './pages/Professores.tsx'
+
 
 import Horario from './pages/Horario.tsx';
 import Professores from './pages/Professores.tsx';
@@ -53,9 +52,7 @@ let router = createBrowserRouter([
     element:<Professores/>
   }
 
-    path: "/menu",
-     element: <Menu />
-  },
+,
   {
       path: "/login",
     element: <Login/>
@@ -76,14 +73,7 @@ let router = createBrowserRouter([
     path: "/horario",
     element: <Horario/>
   },
-    {
-    path: "/professores",
-    element: <Professores/>
-  },
-    {
-    path: "/alunos",
-    element: <Alunos/>
-  },
+    
   {
     path: "/anotacoes",
     element: <Anotacoes/>
