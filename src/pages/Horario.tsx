@@ -2,18 +2,19 @@ import '../assets/style.css'
 import BordedButton from '../components/BordedButton.tsx';
 import { ClockCountdownIcon } from '@phosphor-icons/react';
 import { CalendarClock } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { NotePencilIcon } from '@phosphor-icons/react';
 import { useState } from 'react';
 
-
 export default function Horario(){
-
-    const [aberto, setAberto] = useState(null);
-
-    function toggleDia(id){
+    
+    const [aberto, setAberto] = useState<number | null >(null);
+    
+    function toggleDia(id: number){
         setAberto(aberto === id ? null : id);
-    }
-
+    };
+    
     const dias = [
         "Segunda - Feira",
         "Terça - Feira",
@@ -22,68 +23,93 @@ export default function Horario(){
         "Sexta - Feira",
         "Sábado"
     ];
-
+    
     return(
-        <div className='p-7 px-10'>
+        <div className='flex flex-col p-7 justify-center px-6'>
+            
+            {/* Título */}
             <div className='flex items-center gap-2 px-10'>
                 <p className='text-white font-black text-4xl uppercase'>Horários</p> 
                 <ClockCountdownIcon size={45} color="#fff"/>
             </div>
 
-            <p className='gap-10'> .</p>
+            <div className='my-4'></div>
+
             {dias.map((dia, index) => (
                 <div 
-                  key={index} 
-                  className='flex-column items-center px-10 p-1 font-black' 
-                  style={{ width: "98%" }}
+                    key={index}
+                    className="mb-3 font-black w-full box-border px-15"
                 >
-                    {/* Cabeçalho clicável */}
-                    <div
-                        onClick={() => toggleDia(index)}
-                        style={{
-                            background: "#323558",
-                            cursor: "pointer",
-                            borderRadius: "8px",
-                        }}>
-                        <p className='flex items-center gap-2 p-5 text-white r-10'>
-                            <CalendarClock size={32} color="#fff"/>
-                            {aberto === index ? `${dia} ▲` : `${dia} ▼`}
-                        </p>
-                    </div>
+                    {/* AGRUPAMENTO: cabeçalho + conteúdo expandido */}
+                    <div className="bg-[#323558] rounded-lg overflow-hidden transition-all">
 
-                    {/* Conteúdo expandido */}
-                    {aberto === index && (
+                        {/* Cabeçalho clicável */}
                         <div
-                            style={{
-                                marginTop: "10px",
-                                padding: "15px",
-                                background: "#323558",
-                                borderRadius: "8px",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "10px",
-                            }}
+                            onClick={() => toggleDia(index)}
+                            className="cursor-pointer p-5 flex items-center justify-between text-white"
                         >
-                            <p className='text-white'>1° Aula:</p>  
-                            <input type="text" placeholder="Digite Aqui" />
+                            {/* Esquerda: ícone + dia */}
+                            <div className="flex items-center gap-2">
+                                <CalendarClock size={32} color="#fff"/>
+                                <span>{dia}</span>
+                            </div>
 
-                            <p className='text-white'>2° Aula:</p>
-                            <input type="text" placeholder="Digite Aqui" />
-
-                            <p className='text-white'>3° Aula:</p>
-                            <input type="text" placeholder="Digite Aqui" />
-
-                            <p className='text-white'>4° Aula:</p>
-                            <input type="text" placeholder="Digite Aqui" />
+                            {/* Direita: seta */}
+                            <span>
+                                {aberto === index ? <ChevronUp></ChevronUp> : <ChevronDown></ChevronDown>}
+                            </span>
                         </div>
-                    )}
+
+                        {/* Pop-up colado ao cabeçalho */}
+                        {aberto === index && (
+                            <div className="px-7 py-2 pb-5 flex flex-col gap-5">
+
+                                <div className="flex flex-col gap-1">
+                                    <p className='text-white'>1° Aula:</p>  
+                                    <input 
+                                        type="text"
+                                        className="w-full p-2 rounded-lg bg-[#141640] text-white outline-none"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-1">
+                                    <p className='text-white'>2° Aula:</p>
+                                    <input 
+                                        type="text"
+                                        className="w-full p-2 rounded-lg bg-[#141640] text-white outline-none"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-1">
+                                    <p className='text-white'>3° Aula:</p>
+                                    <input 
+                                        type="text"
+                                        className="w-full p-2 rounded-lg bg-[#141640] text-white outline-none"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-1">
+                                    <p className='text-white'>4° Aula:</p>
+                                    <input 
+                                        type="text"
+                                        className="w-full p-2 rounded-lg bg-[#141640] text-white outline-none"
+                                    />
+                                </div>
+
+                            </div>
+                        )}
+
+                    </div>
                 </div>
             ))}
 
-            <div className='flex items-center gap-60 px-10 p-6'> 
-                <button><NotePencilIcon size={40} color="#fff"/></button>
+            {/* Rodapé botões */}
+            <div className='flex items-center justify-between px-10 p-6'> 
+                <button className='cursor-pointer'>
+                    <NotePencilIcon size={40} color="#fff"/>
+                </button>
                 <BordedButton>Gravar</BordedButton>
-            </div>  
+            </div> 
         </div>
     );
 }
