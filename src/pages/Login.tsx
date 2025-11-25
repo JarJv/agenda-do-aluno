@@ -1,20 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../api/axios';
+import { useAuth } from '../context/AuthContext';
 
 import logoCps from '../assets/logo-cps.png';
 import logoSite from '../assets/logo-site.jpg';
 
 export default function Login() {
-  const [login, setLogin] = useState('');
+  const [loginField, setLoginField] = useState('');
   const [senha, setSenha] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await api.post('/usuario/login', { username: login, senha_hash: senha });
-      localStorage.setItem('access_token', response.data.access_token);
-      console.log('Login realizado com sucesso');
+      const response = await api.post('/usuario/login', { username: loginField, senha_hash: senha });
+      await login(response.data.access_token);
+      navigate('/');
     } catch (error) {
       console.error('Erro ao fazer login:', error);
     }
@@ -54,8 +57,8 @@ export default function Login() {
               <label className="text-white font-bold text-sm">Seu Login: *</label>
               <input 
                 type="text" 
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                value={loginField}
+                onChange={(e) => setLoginField(e.target.value)}
                 className="w-full bg-transparent border border-[#797FF2] rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:bg-[#141640] transition-colors"
               />
             </div>
