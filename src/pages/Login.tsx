@@ -7,7 +7,8 @@ export default function Login() {
   return (
     <div className="min-h-screen w-full bg-[#010326] flex flex-col px-8 py-8 font-sans">
       
-      <header className="w-full flex justify-start mb-4">
+      {/* CABEÇALHO: Aumentei de mb-4 para mb-12 para dar mais espaço entre as logos */}
+      <header className="w-full flex justify-center mb-12">
          <img 
            src={logoCps} 
            alt="Logo CPS" 
@@ -17,7 +18,7 @@ export default function Login() {
 
       <div className="flex-1 flex flex-col items-center w-full">
         
-        {/* 2. Logo do Site  */}
+        {/* Logo do Site */}
         <div className="mb-8">
             <img 
               src={logoSite} 
@@ -52,7 +53,7 @@ export default function Login() {
             </div>
 
             {/* Botão Entrar */}
-            <button className="w-full bg-[#797FF2] text-white font-bold rounded-full py-3 mt-4 hover:opacity-90 transition-opacity">
+            <button className="w-full bg-gradient-to-r from-[#797FF2] to-indigo-600 text-white font-bold rounded-full py-3 mt-4 hover:opacity-90 transition-opacity">
               Entrar
             </button>
 
@@ -62,7 +63,7 @@ export default function Login() {
                 Esqueci minha senha
               </Link>
               
-              <Link to="/cadastro" className="border border-[#797FF2] text-white text-xs font-bold px-6 py-2 rounded-full hover:bg-[#797FF2] transition-colors">
+              <Link to="/cadastro" className="bg-gradient-to-r from-[#797FF2] to-indigo-600 text-white text-xs font-bold px-6 py-2 rounded-full hover:opacity-90 transition-opacity">
                 Cadastrar
               </Link>
             </div>

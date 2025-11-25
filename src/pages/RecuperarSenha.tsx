@@ -4,11 +4,24 @@ import logoSite from '../assets/logo-site.jpg';
 
 export default function RecuperarSenha() {
   return (
-    <div className="min-h-screen w-full bg-[#010326] flex flex-col px-8 py-8 font-sans">
-    
-      <header className="w-full flex justify-between items-start mb-10">
-         <img src={logoCps} alt="Logo CPS" className="w-16 h-auto object-contain" />
-         <img src={logoSite} alt="Logo Site" className="w-16 h-auto rounded-md" />
+    <div className="min-h-screen w-full bg-[#010326] flex flex-col items-center px-8 py-8 font-sans">
+      
+      {/* CABEÇALHO AJUSTADO:
+          max-w-sm: Limita a largura para ficar mais compacto (igual login/cadastro mobile)
+          w-full: Garante que use o espaço disponível até o limite
+          justify-between: Mantém o espaço entre as logos
+      */}
+      <header className="w-full max-w-sm flex justify-between items-start mb-10">
+         <img 
+           src={logoCps} 
+           alt="Logo CPS" 
+           className="w-16 h-auto object-contain" 
+         />
+         <img 
+           src={logoSite} 
+           alt="Logo Site" 
+           className="w-16 h-auto rounded-md" 
+         />
       </header>
 
       <div className="w-full max-w-xs mx-auto">
@@ -34,7 +47,9 @@ export default function RecuperarSenha() {
 
           {/* Botões */}
           <div className="flex flex-col gap-3 mt-2">
-            <button className="w-full bg-[#797FF2] text-white font-bold rounded-full py-3 hover:opacity-90 transition-opacity">
+            
+            {/* Botão Enviar com Gradiente */}
+            <button className="w-full bg-gradient-to-r from-[#797FF2] to-indigo-600 text-white font-bold rounded-full py-3 hover:opacity-90 transition-opacity">
               Enviar Link
             </button>
 
