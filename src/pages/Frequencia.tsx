@@ -1,8 +1,5 @@
-import { useState } from 'react'
 import freqIcon from '../assets/img/freq-icon.png'
 import matIcon from '../assets/img/materiaIcon.png'
-import avanBtn from '../assets/img/avancarBtn.png'
-import retroBtn from '../assets/img/retrocederBtn.png'
 import CirculoProgresso from '../components/circuloProgresso'
 
 export default function Frequencia(){
@@ -10,101 +7,64 @@ export default function Frequencia(){
     // Trocar pelas matérias corretas depois
     
     const materias = [
-        { nome: "Matemática", porcentagem: 75 },
-        { nome: "Web 3", porcentagem: 60 },
+        { nome: "Matemática", porcentagem: 71 },
+        { nome: "Web 3", porcentagem: 65 },
         { nome: "Banco de Dados", porcentagem: 70 },
     ];
 
-    const soma = materias.reduce((acc, materia) => acc + materia.porcentagem, 0);
+    const soma: number = materias.reduce((acc, materia) => acc + materia.porcentagem, 0);
 
-    const global = Math.round(soma / materias.length);
+    const porcentagem: number = Math.round(soma / materias.length);
 
-    //Carrossel
-    const [index, setIndex] = useState(0);
+    const porcentagemFinal: number = porcentagem
 
-    const totalOpcoes = 1 + materias.length;
-
-    const avancar = () => {
-        setIndex((prev) => (prev + 1) % totalOpcoes);
-    };
-
-    const voltar = () => {
-        setIndex((prev) => (prev - 1 + totalOpcoes) % totalOpcoes);
-    };
-
-    const nomeSelecionado = index === 0 
-        ? "Global" 
-        : materias[index - 1].nome;
-
-    const porcentagemSelecionada = index === 0 
-        ? global
-        : materias[index - 1].porcentagem;
+    const nomeSelecionado: String = "Global" 
 
 
     return(
         <section className="flex flex-col items-center px-4 pb-10 min-h-screen">
             
-            <div className="flex flex-row gap-1 p-4 w-full my-8 items-center justify-center">
-                <h1 className="text-4xl text-white font-bold p-2">Frequência</h1>
+            <div className="flex flex-row flex-wrap gap-x-2 p-4 w-full my-10 items-center justify-center text-center">
+                <h1 className="flex text-white font-extrabold items-end justify-center text-5xl">Frequência</h1>
                 <img className="w-10 min-h-10 h-auto" src={freqIcon} alt="Frequência" />
             </div>
 
-            <div className="flex flex-row justify-self-center items-center justify-between my-8 w-full max-w-2/6 min-h-12 h-auto px-4 rounded-3xl bg-(--c3)">
-
-                {/* Botão voltar */}
-                <button 
-                    className="text-white text-3xl h-12 cursor-pointer"
-                    onClick={voltar}
-                >
-                    <img className="w-10 min-h-10 h-auto" src={retroBtn} alt="Anterior" />
-                </button>
-
                 {/* Opção atual */}
-                <div className="flex flex-row justify-self-center items-center justify-center m-0 min-w-2/6 min-h-12 h-auto py-2 rounded-3xl bg-(--c2)">
-                    <p className="text-[16px] text-white center">
-                        {nomeSelecionado}
-                    </p>
-                </div>
-
-                {/* Botão avançar */}
-                <button 
-                    className="text-white text-3xl h-12 cursor-pointer"
-                    onClick={avancar}
-                >
-                    <img className="w-10 min-h-10 h-auto" src={avanBtn} alt="Próximo" />
-                </button>
-
+            <div className="flex flex-row justify-self-center mt-0 mb-10 items-center justify-center m-0 min-w-1/6 min-h-12 h-auto py-2 rounded-3xl bg-(--c2)">
+                <p className="text-xl text-white center">
+                    {nomeSelecionado}
+                </p>
             </div>
 
-            {/* Progresso varia de acordo com a opção selecionada no carrossel */}
-            <CirculoProgresso porcentagem={porcentagemSelecionada}/>
+            {/* Progresso varia de acordo com as notas */}
 
-            <div className="my-20 flex flex-col gap-3 w-full max-w-2/5">
-                <div className="bg-(--c3) flex flex-row p-3 w-full min-h-[72px] h-auto rounded-xl items-center justify-between">
+            <CirculoProgresso className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 " porcentagem={porcentagemFinal}/>
+
+            <div className="my-20 flex flex-col gap-3 w-full max-w-full sm:max-w-[90%] md:max-w-2/3 lg:max-w-2/5 mx-auto">
+                <div className="bg-(--c3) flex flex-row p-3 w-full min-h-[72px] h-auto rounded-xl gap-3 items-center flex-nowrap">
                     <img className="w-10 min-h-10 h-auto" src={matIcon} alt="Calendário"/>
-                    <ul className="text-white">
-                        <li className="text-xl font-bold">Matéria</li>
-                        <li>Data</li>
+                    <ul className="text-white ">
+                        <li className="text-xl font-bold">Terça</li>
+                        <li>25/11/2025</li>
                     </ul>
-                    <p className="text-white">Dia semana</p>
+                    
                 </div>
 
-                <div className="bg-(--c3) flex flex-row p-3 w-full min-h-[72px] h-auto rounded-xl items-center justify-between">
+                <div className="bg-(--c3) flex flex-row p-3 w-full min-h-[72px] h-auto rounded-xl gap-3 items-center flex-nowrap">
                     <img className="w-10 min-h-10 h-auto" src={matIcon} alt="Calendário"/>
                     <ul className="text-white">
-                        <li className="text-xl font-bold">Matéria</li>
-                        <li>Data</li>
+                        <li className="text-xl font-bold">Quarta</li>
+                        <li>26/11/2025</li>
                     </ul>
-                    <p className="text-white">Dia semana</p>
+                    
                 </div>
 
-                <div className="bg-(--c3) flex flex-row p-3 w-full min-h-[72px] h-auto rounded-xl items-center justify-between">
+                <div className="bg-(--c3) flex flex-row p-3 w-full min-h-[72px] h-auto rounded-xl gap-3 items-center flex-nowrap">
                     <img className="w-10 min-h-10 h-auto" src={matIcon} alt="Calendário"/>
                     <ul className="text-white">
-                        <li className="text-xl font-bold">Matéria</li>
-                        <li>Data</li>
+                        <li className="text-xl font-bold">Quinta</li>
+                        <li>27/11/2025</li>
                     </ul>
-                    <p className="text-white">Dia semana</p>
                 </div>
             </div>
 

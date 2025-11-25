@@ -39,3 +39,7 @@
     font-weight: normal;
     color: #fff
 }
+
+html, body {
+  overflow-x: hidden;
+}

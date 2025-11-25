@@ -2,20 +2,22 @@ interface Props{
     porcentagem: number; 
     tamanho?: number;
     tracoT?: number; //espessura
+    className?: string;
 }
 
 export default function CirculoProgresso({
     porcentagem,
     tamanho = 120,
-    tracoT = 10
+    tracoT = 10,
+    className
 }: Props){
     const radius = (tamanho - tracoT) / 2;
     const circumferencia = 2 * Math.PI * radius;
     const offset = circumferencia - (porcentagem / 100) * circumferencia;
 
     return(
-        <div className="flex items-center justify-center">
-            <svg width={tamanho} height={tamanho}>
+        <div className={`${className} flex justify-center items-center`}>
+            <svg viewBox={`0 0 ${tamanho} ${tamanho}`} className="w-full h-full">
 
                 {/*Circulo do fundo*/}
                 <circle

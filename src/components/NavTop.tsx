@@ -10,7 +10,7 @@ function NavTop() {
   const [open, setOpen] = useState(false);
 
     return (
-       <div className="relative w-full px-2">
+       <div className="relative w-full">
             <nav className="bg-(--c2) w-full py-4 px-5 flex items-center rounded-none justify-between">
                 <p className="text-white text-lg">Bem-vindo, {""}
                     <label id="nomeAluno" className="font-bold">
