@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../api/axios';
 import logoCps from '../assets/logo-cps.png';
 import logoSite from '../assets/logo-site.jpg';
 
 export default function Cadastro() {
+  const navigate = useNavigate();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [ra, setRa] = useState('');
@@ -30,6 +31,7 @@ export default function Cadastro() {
     try {
       const res = await api.post('/usuario', payload);
       console.log(res.data);
+      navigate('/login');
     } catch (err) {
       console.error(err);
     }

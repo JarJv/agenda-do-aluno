@@ -7,6 +7,11 @@ interface Usuario {
   username: string;
   email?: string;
   nome?: string;
+  dt_nascimento?: string;
+  tel_celular?: string;
+  nome_curso?: string;
+  modulo?: number;
+  bimestre?: number;
 }
 
 interface AuthContextType {
@@ -15,6 +20,7 @@ interface AuthContextType {
   login: (token: string) => Promise<void>;
   logout: () => void;
   atualizarUsuario: () => Promise<void>;
+  atualizarUsuarioParcial: (dados: Partial<Usuario>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -55,12 +61,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await carregarUsuario();
   };
 
+  const atualizarUsuarioParcial = async (dados: Partial<Usuario>) => {
+    try {
+      await api.patch('/usuario/', dados);
+      await carregarUsuario();
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     carregarUsuario();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ usuario, loading, login, logout, atualizarUsuario }}>
+    <AuthContext.Provider value={{ usuario, loading, login, logout, atualizarUsuario, atualizarUsuarioParcial }}>
       {children}
     </AuthContext.Provider>
   );
