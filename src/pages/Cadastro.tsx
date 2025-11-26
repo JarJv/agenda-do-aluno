@@ -128,6 +128,7 @@ export default function Cadastro() {
         message={toast.message}
         isVisible={toast.isVisible}
         onClose={() => setToast({ ...toast, isVisible: false })}
+        position="bottom"
       />
       <div className="min-h-screen w-full bg-[#010326] flex flex-col items-center px-6 py-8 font-sans overflow-y-auto">
 
