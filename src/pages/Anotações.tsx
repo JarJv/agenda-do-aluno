@@ -1,3 +1,6 @@
+  /* PAGINA COMPLETAMENTE ALTERADA PARA CONSEGUIR INTEGRAR A API*/
+
+
 import { useState, useEffect } from "react";
 import { Pencil, Trash, Plus, NotebookPen } from "lucide-react";
 import api from "../api/axios";
@@ -16,7 +19,7 @@ export default function Anotacoes() {
   const [formTitle, setFormTitle] = useState("");
   const [formContent, setFormContent] = useState("");
 
-  /* 1️⃣ Listar anotações */
+  /* Listar anotações */
   useEffect(() => {
     api.get("/anotacao/")
       .then(res => setCards(res.data.data || []))
@@ -26,7 +29,7 @@ export default function Anotacoes() {
       });
   }, []);
 
-  /* 2️⃣ Abrir modal para criar */
+  /* Abrir modal para criar */
   function openCreateModal() {
     setEditingCardId(null);
     setFormTitle("");
@@ -34,7 +37,7 @@ export default function Anotacoes() {
     setShowModal(true);
   }
 
-  /* 3️⃣ Abrir modal para editar */
+  /* Abrir modal para editar */
   function openEditModal(id: number) {
     api.get(`/anotacao/${id}`)
       .then(res => {
@@ -47,7 +50,7 @@ export default function Anotacoes() {
       .catch(err => console.error("Erro ao obter anotação:", err));
   }
 
-  /* 4️⃣ Salvar anotação */
+  /* Salvar anotação */
   function saveCard(e: React.FormEvent) {
     e.preventDefault();
     if (!formTitle.trim() || !formContent.trim()) return;
@@ -64,7 +67,7 @@ export default function Anotacoes() {
         .catch(err => console.error("Erro ao criar anotação:", err))
         .finally(() => setShowModal(false));
     } else {
-      // Editar anotação existente
+      // Editar 
       api.put(`/anotacao/${editingCardId}`, payload)
         .then(res => {
           const updatedCard = res.data.data;
@@ -77,7 +80,7 @@ export default function Anotacoes() {
     }
   }
 
-  /* 5️⃣ Deletar anotação */
+  /* Deletar anotação */
   function deleteCard(id: number) {
     if (!window.confirm("Tem certeza que deseja deletar esta anotação?")) return;
 
