@@ -44,7 +44,7 @@ export default function Perfil() {
                 </div>
             </div>
             <div className='flex justify-between mt-[8%]'>
-                <NotePencil size={35} color="#ffffff" />
+                <a href='/perfileditar'><NotePencil size={35} color="#ffffff" /></a>
                 <BordedButton>
                     Gravar
                 </BordedButton>

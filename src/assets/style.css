@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 
 :root{
     --c1:#141640;
@@ -6,6 +8,7 @@
     --c3:#46498C;
     --c4:#323558;
     --c5:#05061B;
+    --font: font-family: "Montserrat", sans-serif;
 }
 
 .high-contrast {

@@ -20,6 +20,7 @@ import Professores from './pages/Professores.tsx'
 import Horario from './pages/Horario.tsx';
 import Anotacoes from './pages/Anotações.tsx';
 import Perfil from './pages/Perfil.tsx';
+import PerfilEditar from './pages/PerfilEditar.tsx';
 
 let router = createBrowserRouter([
   {
@@ -27,70 +28,61 @@ let router = createBrowserRouter([
     element:<Inicio/>
   },
   {
+    path: "/menu",
+    element: <Menu />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/cadastro",
+    element: <Cadastro />
+  },
+  {
+    path: "/recuperasenha",
+    element: <RecuperarSenha />
+  },
+  {
     path: "/calendario",
     element: <Calendario />
   },
   {
+    path: "/horario",
+    element: <Horario />
+  },
+  {
+    path: "/professores",
+    element: <Professores />
+  },
+  {
+    path: "/alunos",
+    element: <Alunos />
+  },
+  {
     path: "/frequencia",
-    element: <Frequencia/>
+    element: <Frequencia />
   },
   {
     path: "/notas",
     element: <Notas />
   },
   {
-    path: "/configuracoes",
-    element: <Configuracoes />
-  },
-  {
-    path:'/alunos',
-    element:<Alunos/>
-  },
-  {
-    path:'/professores',
-    element:<Professores/>
-  },
-  {
-    path: "/menu",
-     element: <Menu />
-  },
-  {
-      path: "/login",
-    element: <Login/>
-  },
-  {
-    path: "/cadastro",
-    element: <Cadastro/>
-  },
-  {
-    path: "/recuperar-senha",
-    element: <RecuperarSenha/>
-  },
-  {
-    path: "/menu",
-    element: <Menu/>
-  },
-  {
-    path: "/horario",
-    element: <Horario/>
-  },
-    {
-    path: "/professores",
-    element: <Professores/>
-  },
-    {
-    path: "/alunos",
-    element: <Alunos/>
-  },
-  {
-    path: "/anotacoes",
-    element: <Anotacoes/>
+    path: "/anotacao",
+    element: <Anotacoes />
   },
   {
     path: "/perfil",
-    element: <Perfil/>
+    element: <Perfil />
   },
-
+  {
+    path: "/perfileditar",
+    element: <PerfilEditar />
+  },
+  {
+    path: "/configuracao",
+    element: <Configuracoes />
+  }
 ]);
 
 createRoot(document.getElementById('root')!).render(
