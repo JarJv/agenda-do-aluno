@@ -1,6 +1,7 @@
 import '../assets/style.css'
 import { CircleUserRound } from "lucide-react"
 import BordedButton from '../components/BordedButton.tsx'
+import EmptySection from '../components/EmptySection.tsx'
 
 export default function PerfilEditar() {
     return (
@@ -70,6 +71,7 @@ export default function PerfilEditar() {
                     Gravar
                 </BordedButton>
             </div>
+            <EmptySection/>
         </div>
     )
 }
