@@ -28,6 +28,7 @@ type Aluno = {
   nome: string;
   myimg: string;
   email: string;
+  tel_celular:string;
   // REMOVIDO o campo curso
 };
 
@@ -47,6 +48,7 @@ async function getAlunos(): Promise<Aluno[]> {
         nome: aluno.nome,
         email: aluno.email,
         myimg: `https://ui-avatars.com/api/?name=${encodeURIComponent(aluno.nome)}&background=5960FF&color=fff&size=120`,
+        tel_celular:aluno.tel_celular
         // REMOVIDO o campo curso
       }));
       
@@ -386,6 +388,7 @@ const handleExcluirAluno = async (id: number, nome: string) => {
                             {aluno.nome}
                           </h1>
                           <p className="text-white text-sm mb-2">{aluno.email}</p>
+                          <p className="text-white text-sm mb-2">{aluno.tel_celular}</p>
                           
                           {/* REMOVIDA A SEÇÃO DE CURSO */}
                         </div>

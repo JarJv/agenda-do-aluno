@@ -277,12 +277,12 @@ export default function Professores() {
 
                                     <div className="flex flex-col gap-3 justify-center pl-2">
                                         <div>
-                                            <h1 className="text-white text-2xl font-bold">{prof.nome}</h1>
-                                            <p className="text-white text-xl ml-2.5">{prof.email}</p>
+                                            <h1 className="text-white text-xl font-bold">{prof.nome}</h1>
+                                            <p className="text-white ml-2.5">{prof.email}</p>
                                         </div>
                                         <div>
                                             <h2 className="text-white font-semibold">Disciplina:</h2>
-                                            <p className="text-white font-bold text-xl ml-2.5">{prof.disciplina ?? "-"}</p>
+                                            <p className="text-white font-bold ml-2.5">{prof.disciplina ?? "-"}</p>
                                         </div>
                                     </div>
                                 </div>

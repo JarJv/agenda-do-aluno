@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import "../assets/style.css";
 import { MenuItem } from "../components/MenuItem";
+import { MoreOptions } from "../components/MoreOptions.tsx";
 import EmptySection from "../components/EmptySection.tsx";
 
 const menuItems = [
@@ -28,6 +29,12 @@ const menuItems = [
 export default function Menu() {
   return (
     <div className="flex flex-col w-full h-full px-6 py-4">
+      <div className="flex justify-between items-center mb-6 text-white">
+        <button onClick={()=>{window.location.href="/configuracao"}}>
+          <Settings size={24}/>
+        </button>
+        <MoreOptions/>
+      </div>
       <div className="grid grid-cols-2 gap-4">
         {menuItems.map((item) => (
           <MenuItem
