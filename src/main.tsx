@@ -69,7 +69,7 @@ let router = createBrowserRouter([
     element: <Notas />
   },
   {
-    path: "/anotacao",
+    path: "/anotacoes",
     element: <Anotacoes />
   },
   {
