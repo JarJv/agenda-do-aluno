@@ -17,7 +17,7 @@ export default function Login() {
     try {
       const response = await api.post('/usuario/login', { username: loginField, senha_hash: senha });
       await login(response.data.access_token);
-      navigate('/');
+      navigate('/menu');
     } catch (error) {
       console.error('Erro ao fazer login:', error);
     }
