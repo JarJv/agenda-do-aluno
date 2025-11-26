@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './assets/style.css';
 import { AuthProvider } from './context/AuthContext';
+import Layout from './components/Layout.tsx';
 import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
 import Notas from './pages/Notas.tsx';
@@ -24,66 +25,72 @@ import Anotacoes from './pages/Anotações.tsx';
 import Perfil from './pages/Perfil.tsx';
 import PerfilEditar from './pages/PerfilEditar.tsx';
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
-    element:<Inicio/>
-  },
-  {
-    path: "/menu",
-    element: <Menu />
-  },
-  {
-    path: "/login",
-    element: <Login />
-  },
-  {
-    path: "/cadastro",
-    element: <Cadastro />
-  },
-  {
-    path: "/recuperasenha",
-    element: <RecuperarSenha />
-  },
-  {
-    path: "/calendario",
-    element: <Calendario />
-  },
-  {
-    path: "/horario",
-    element: <Horario />
-  },
-  {
-    path: "/professores",
-    element: <Professores />
-  },
-  {
-    path: "/alunos",
-    element: <Alunos />
-  },
-  {
-    path: "/frequencia",
-    element: <Frequencia />
-  },
-  {
-    path: "/notas",
-    element: <Notas />
-  },
-  {
-    path: "/anotacao",
-    element: <Anotacoes />
-  },
-  {
-    path: "/perfil",
-    element: <Perfil />
-  },
-  {
-    path: "/perfileditar",
-    element: <PerfilEditar />
-  },
-  {
-    path: "/configuracao",
-    element: <Configuracoes />
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Inicio />
+      },
+      {
+        path: "menu",
+        element: <Menu />
+      },
+      {
+        path: "login",
+        element: <Login />
+      },
+      {
+        path: "cadastro",
+        element: <Cadastro />
+      },
+      {
+        path: "recuperasenha",
+        element: <RecuperarSenha />
+      },
+      {
+        path: "calendario",
+        element: <Calendario />
+      },
+      {
+        path: "horario",
+        element: <Horario />
+      },
+      {
+        path: "professores",
+        element: <Professores />
+      },
+      {
+        path: "alunos",
+        element: <Alunos />
+      },
+      {
+        path: "frequencia",
+        element: <Frequencia />
+      },
+      {
+        path: "notas",
+        element: <Notas />
+      },
+      {
+        path: "anotacoes",
+        element: <Anotacoes />
+      },
+      {
+        path: "perfil",
+        element: <Perfil />
+      },
+      {
+        path: "perfileditar",
+        element: <PerfilEditar />
+      },
+      {
+        path: "configuracao",
+        element: <Configuracoes />
+      }
+    ]
   }
 ]);
 

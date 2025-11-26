@@ -1,6 +1,8 @@
-import freqIcon from '../assets/img/freq-icon.png'
-import matIcon from '../assets/img/materiaIcon.png'
-import CirculoProgresso from '../components/circuloProgresso'
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import freqIcon from '../assets/img/freq-icon.png';
+import matIcon from '../assets/img/materiaIcon.png';
+import CirculoProgresso from '../components/circuloProgresso';
 import EmptySection from '../components/EmptySection.tsx';
 import { useEffect } from "react";
 import { useFrequencia } from "../context/FrequenciaContext";
