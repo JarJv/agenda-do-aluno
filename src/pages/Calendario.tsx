@@ -5,6 +5,7 @@ import BordedButton from "../components/BordedButton";
 import EmptySection from "../components/EmptySection.tsx";
 //import { useAuth } from '../context/AuthContext';
 import api from "../api/axios.ts";
+import { useFrequencia } from "../context/FrequenciaContext";
 
 // Interface para os eventos do calendário
 interface CalendarioEvento {
@@ -40,6 +41,7 @@ export default function Calendario() {
   const diasNoMes = new Date(ano, mes + 1, 0).getDate();
   const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
 
+  const { setFaltas } = useFrequencia();
   // Função para buscar eventos do calendário
   const buscarEventos = async () => {
     try {
@@ -54,6 +56,12 @@ export default function Calendario() {
       if (response.data.success) {
         setEventos(response.data.data);
       }
+      const totalFaltas = response.data.data.filter(
+        (e: any) => e.id_tipo_data === 1
+      ).length;
+
+      setFaltas(totalFaltas);
+      
     } catch (error: any) {
       console.error('Erro ao buscar eventos:', error);
       if (error.response?.status === 401) {
@@ -339,7 +347,8 @@ export default function Calendario() {
   // Buscar eventos quando o componente montar
   useEffect(() => {
     buscarEventos();
-  }, [currentDate]); // Recarregar eventos quando mudar o mês
+    gerarDias();
+  }, [currentDate]); 
 
   return (
     <div className="min-h-screen bg-[#0d1435] text-white flex flex-col items-center p-6">

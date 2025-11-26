@@ -2,25 +2,20 @@ import freqIcon from '../assets/img/freq-icon.png'
 import matIcon from '../assets/img/materiaIcon.png'
 import CirculoProgresso from '../components/circuloProgresso'
 import EmptySection from '../components/EmptySection.tsx';
+import { useEffect } from "react";
+import { useFrequencia } from "../context/FrequenciaContext";
 
-export default function Frequencia(){
+export default function Frequencia() {
+    const { faltas, atualizarFaltas } = useFrequencia();
 
-    // Trocar pelas matérias corretas depois
-    
-    const materias = [
-        { nome: "Matemática", porcentagem: 71 },
-        { nome: "Web 3", porcentagem: 65 },
-        { nome: "Banco de Dados", porcentagem: 70 },
-    ];
+    useEffect(() => {
+        atualizarFaltas();  // força atualização ao abrir a tela
+    }, []);
 
-    const soma: number = materias.reduce((acc, materia) => acc + materia.porcentagem, 0);
+    const diasLetivos = 50;
+    const porcentagem = Math.round(((diasLetivos - faltas) / diasLetivos) * 100);
 
-    const porcentagem: number = Math.round(soma / materias.length);
-
-    const porcentagemFinal: number = porcentagem
-
-    const nomeSelecionado: String = "Global" 
-
+    const nomeSelecionado = "Global";
 
     return(
         <section className="flex flex-col items-center px-4 pb-10 min-h-screen">
@@ -30,16 +25,16 @@ export default function Frequencia(){
                 <img className="w-10 min-h-10 h-auto" src={freqIcon} alt="Frequência" />
             </div>
 
-                {/* Opção atual */}
             <div className="flex flex-row justify-self-center mt-0 mb-10 items-center justify-center m-0 min-w-1/6 min-h-12 h-auto py-2 rounded-3xl bg-(--c2)">
                 <p className="text-xl text-white center">
                     {nomeSelecionado}
                 </p>
             </div>
 
-            {/* Progresso varia de acordo com as notas */}
-
-            <CirculoProgresso className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 " porcentagem={porcentagemFinal}/>
+            <CirculoProgresso 
+                className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56"
+                porcentagem={porcentagem}
+            />
 
             <div className="my-20 flex flex-col gap-3 w-full max-w-full sm:max-w-[90%] md:max-w-2/3 lg:max-w-2/5 mx-auto">
                 <div className="bg-(--c3) flex flex-row p-3 w-full min-h-[72px] h-auto rounded-xl gap-3 items-center flex-nowrap">

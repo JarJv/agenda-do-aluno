@@ -13,6 +13,7 @@ import Cadastro from './pages/Cadastro.tsx';
 import RecuperarSenha from './pages/RecuperarSenha.tsx';
 
 import Frequencia from './pages/Frequencia.tsx';
+import { FrequenciaProvider } from "./context/FrequenciaContext";
 import NavTop from './components/NavTop.tsx'
 import NavBottom from './components/NavBottom.tsx'
 import Alunos from './pages/Alunos.tsx'
@@ -89,11 +90,14 @@ let router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
-      <div className='min-w-screen min-h-screen bg-(--c1)'>
-        {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavTop />}
-        <RouterProvider router={router}/>
-        {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavBottom />}
-      </div>
+      <FrequenciaProvider>
+
+        <div className='min-w-screen min-h-screen bg-(--c1)'>
+          {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavTop />}
+          <RouterProvider router={router}/>
+          {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavBottom />}
+        </div>
+      </FrequenciaProvider>
     </AuthProvider>
   </StrictMode>,
 )
