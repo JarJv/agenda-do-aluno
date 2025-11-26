@@ -2,7 +2,8 @@
 
 
 import { useState, useEffect } from "react";
-import { Pencil, Trash, Plus, NotebookPen } from "lucide-react";
+import { Pencil, Trash, NotebookPen } from "lucide-react";
+import { Plus } from '@phosphor-icons/react';
 import api from "../api/axios";
 
 interface Card {
@@ -116,12 +117,10 @@ export default function Anotacoes() {
       </div>
 
       <div className="fixed bottom-24 left-0 w-full px-8 flex justify-end items-center z-50">
-        <button
-          className="w-12 h-12 rounded-full border-2 border-white bg-[#46498C] text-white flex items-center justify-center shadow-lg hover:bg-[#56599C] transition-colors"
-          onClick={openCreateModal}
-        >
-          <Plus size={28} />
-        </button>
+        <button className='border-2 border-white rounded-full p-1.5 text-white font-bold cursor-pointer'
+                        onClick={openCreateModal}>
+                  <Plus size={24} />
+                </button>
       </div>
 
       {showModal && (

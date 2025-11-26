@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../assets/style.css";
 import alunoC from "../assets/alunoChapeu.png";
 import { Search, Trash2 } from "lucide-react";
+import {Plus} from '@phosphor-icons/react';
 import EmptySection from "../components/EmptySection.tsx";
 import api from "../api/axios";
 
@@ -412,12 +413,10 @@ const handleExcluirAluno = async (id: number, nome: string) => {
         )}
 
         <div className="flex justify-between items-center w-full max-w-xl mt-7 mb-6 px-4">
-          <button 
-            className="w-12 h-12 rounded-full border-2 border-white text-white text-2xl flex items-center justify-center"
-            onClick={openModal}
-          >
-            +
-          </button>
+          <button className='border-2 border-white rounded-full p-1.5 text-white font-bold cursor-pointer'
+                          onClick={openModal}>
+                    <Plus size={24} />
+                  </button>
 
           <button 
             className="px-8 py-2 rounded-full border-2 border-white text-white font-semibold"
