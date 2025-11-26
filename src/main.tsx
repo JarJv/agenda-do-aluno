@@ -84,7 +84,7 @@ const router = createBrowserRouter([
         element: <PerfilEditar />
       },
       {
-        path: "configuracoes",
+        path: "configuracao",
         element: <Configuracoes />
       }
     ]

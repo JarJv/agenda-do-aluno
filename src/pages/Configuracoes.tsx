@@ -10,8 +10,6 @@ import {
   Info,
 } from "@phosphor-icons/react";
 import SettingButton from "../components/SettingButton.tsx";
-import ToastSuccess from "../components/ToastSuccess.tsx";
-import EmptySection from "../components/EmptySection.tsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
