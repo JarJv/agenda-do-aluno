@@ -1,7 +1,11 @@
 import '../assets/style.css'
 import {useRef, useState, useEffect} from 'react';
-import {SquarePenIcon} from 'lucide-react'
-import {CaretLeft, CaretRight} from '@phosphor-icons/react'
+import {SquarePenIcon} from 'lucide-react';
+import {CaretLeft, CaretRight} from '@phosphor-icons/react';
+import { NotePencilIcon } from '@phosphor-icons/react';
+import { Trash } from 'lucide-react';
+import { CirclePlus } from 'lucide-react';
+import BordedButton from '../components/BordedButton.tsx';
 
 export default function Notas(){
     const [index, setIndex] = useState(0);
@@ -75,6 +79,29 @@ export default function Notas(){
                     </article>
                 </div>
             </section>
+
+            {/* Div criada para colocar os botões de Adicionar, Editar, Deletar e Gravar */}
+            <div className='flex items-center justify-between px-10 p-6'>
+            <div className='flex items-center gap-5'>
+
+                {/* Botão de Adicionar */}
+                <button className='cursor-pointer'>
+                    <CirclePlus size={40} color="#fff"/>
+                </button>
+
+                {/* Botão de Editar */}
+               <button className='cursor-pointer'>
+                    <NotePencilIcon size={40} color="#fff"/>
+                </button>
+
+                {/* Botão de Deletar */}
+                <button className='cursor-pointer'>
+                    <Trash size={40} color="#fff"/>
+                </button>
+            </div>
+                {/* Botão de Gravar */}
+                <BordedButton>Gravar</BordedButton>
+            </div> 
         </main>
     )
 }
