@@ -1,30 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { CalendarDots, NotePencil, CaretLeft, CaretRight, X } from "@phosphor-icons/react";
 import BordedButton from "../components/BordedButton";
 import EmptySection from "../components/EmptySection.tsx";
+//import { useAuth } from '../context/AuthContext';
 import api from "../api/axios.ts";
-
-// Constantes
-const TIPO_EVENTO = {
-  FALTA: 1,
-  NAO_LETIVO: 2,
-  LETIVO: 3
-} as const;
-
-const TIPOS_EVENTO_LABEL = {
-  [TIPO_EVENTO.FALTA]: 'Falta',
-  [TIPO_EVENTO.NAO_LETIVO]: 'Não Letivo',
-  [TIPO_EVENTO.LETIVO]: 'Letivo'
-} as const;
-
-const MESES = [
-  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-];
-
-const LIMIT_EVENTOS = 1000;
-const DIAS_EXIBICAO_LISTA = 10;
+import { useFrequencia } from "../context/FrequenciaContext";
 
 // Interface para os eventos do calendário
 interface CalendarioEvento {
@@ -34,11 +15,6 @@ interface CalendarioEvento {
   id_tipo_data: number;
 }
 
-interface EventoFormData {
-  data: string;
-  tipo: string;
-}
-
 export default function Calendario() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,245 +22,313 @@ export default function Calendario() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedEvent, setSelectedEvent] = useState<CalendarioEvento | null>(null);
+  //const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [eventFormData, setEventFormData] = useState<EventoFormData>({
+  const [formData, setFormData] = useState({
     data: '',
     tipo: ''
   });
 
+  const meses = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
+
   const ano = currentDate.getFullYear();
   const mes = currentDate.getMonth();
+
   const diasNoMes = new Date(ano, mes + 1, 0).getDate();
   const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
 
-  // ===== Funções auxiliares de tratamento de erro =====
-  const mapeiarErroEvento = (status: number): string => {
-    const erroMap: Record<number, string> = {
-      400: 'Tipo de data inválido',
-      403: 'Você não tem permissão para realizar esta ação',
-      404: 'Evento não encontrado',
-      409: 'Já existe um evento para esta data',
-      401: 'Token inválido ou expirado'
-    };
-    return erroMap[status] || 'Erro ao processar evento. Tente novamente.';
-  };
-
-  const tratarErroAPI = (error: unknown, defaultMsg: string): string => {
-    if (error instanceof Error && 'response' in error) {
-      const apiError = error as { response?: { status: number } };
-      if (apiError.response?.status === 401) {
-        navigate('/login');
-      }
-      return mapeiarErroEvento(apiError.response?.status || 500) || defaultMsg;
-    }
-    return 'Erro de conexão. Verifique sua internet.';
-  };
-
-  // ===== Funções auxiliares de data =====
-  const formatarDataISO = (dia: number): string => {
-    return `${ano}-${String(mes + 1).padStart(2, "0")}-${String(dia).padStart(2, "0")}`;
-  };
-
-  const ehDataPassada = (data: Date): boolean => {
-    const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0);
-    return data < hoje;
-  };
-
-  const parsearDataISO = (dataISO: string): Date => {
-    const [year, month, day] = dataISO.split('-').map(Number);
-    return new Date(year, month - 1, day);
-  };
-
-  const formatarDataBR = (dataISO: string): string => {
-    const data = parsearDataISO(dataISO);
-    return data.toLocaleDateString('pt-BR');
-  };
-
-  // ===== Funções de filtro de eventos =====
-  const filtrarEventosPorTipo = (tipoId: number): string[] => {
-    return eventos
-      .filter(evento => evento.id_tipo_data === tipoId)
-      .map(evento => evento.data_evento);
-  };
-
-  const obterEventosNaoLetivos = (): string[] => filtrarEventosPorTipo(TIPO_EVENTO.NAO_LETIVO);
-  const obterFaltas = (): string[] => filtrarEventosPorTipo(TIPO_EVENTO.FALTA);
-  const obterEventosLetivos = (): string[] => filtrarEventosPorTipo(TIPO_EVENTO.LETIVO);
-
-  // ===== Funções de API =====
-  const buscarEventos = async (): Promise<void> => {
+  const { setFaltas } = useFrequencia();
+  // Função para buscar eventos do calendário
+  const buscarEventos = async () => {
     try {
       setLoading(true);
       const response = await api.get('/calendario/', {
-        params: { skip: 0, limit: LIMIT_EVENTOS }
+        params: {
+          skip: 0,
+          limit: 1000
+        }
       });
       
       if (response.data.success) {
         setEventos(response.data.data);
       }
-    } catch (error: unknown) {
-      if (error instanceof Error && 'response' in error) {
-        const apiError = error as { response?: { status: number } };
-        // Tratar 404 como lista vazia (nenhum evento encontrado)
-        if (apiError.response?.status === 404) {
-          setEventos([]);
-          setError('');
-          return;
-        }
+      const totalFaltas = response.data.data.filter(
+        (e: any) => e.id_tipo_data === 1
+      ).length;
+
+      setFaltas(totalFaltas);
+      
+    } catch (error: any) {
+      console.error('Erro ao buscar eventos:', error);
+      if (error.response?.status === 401) {
+        setError('Sessão expirada. Faça login novamente.');
+        navigate('/login');
+      } else {
+        setError('Erro ao carregar eventos.');
       }
-      const mensagem = tratarErroAPI(error, 'Erro ao carregar eventos.');
-      setError(mensagem);
     } finally {
       setLoading(false);
     }
   };
 
-  const buscarEventoPorData = async (data: string): Promise<CalendarioEvento | null> => {
+  // Função para buscar evento por data
+  const buscarEventoPorData = async (data: string) => {
     try {
       const response = await api.get(`/calendario/data/${data}`);
       return response.data.data;
-    } catch {
+    } catch (error) {
       return null;
     }
   };
 
-  const executarOperacaoEvento = async (
-    operacao: () => Promise<unknown>,
-    mensagemSucesso: string
-  ): Promise<boolean> => {
+  // Função para criar novo evento
+  const criarEvento = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    
     try {
       setLoading(true);
-      setError('');
-      await operacao();
-      await buscarEventos();
-      return true;
-    } catch (error: unknown) {
-      const mensagem = tratarErroAPI(error, mensagemSucesso);
-      setError(mensagem);
-      return false;
+      
+      const eventoData = {
+        data_evento: formData.data,
+        id_tipo_data: parseInt(formData.tipo)
+      };
+
+      const response = await api.post('/calendario/', eventoData);
+      
+      if (response.status === 201) {
+        await buscarEventos();
+        fecharModal();
+      }
+      
+    } catch (error: any) {
+      console.error('Erro ao criar evento:', error);
+      
+      if (error.response) {
+        switch (error.response.status) {
+          case 400:
+            setError('Tipo de data inválido');
+            break;
+          case 409:
+            setError('Já existe um evento para esta data');
+            break;
+          case 401:
+            setError('Token inválido ou expirado');
+            navigate('/login');
+            break;
+          default:
+            setError('Erro ao criar evento. Tente novamente.');
+        }
+      } else {
+        setError('Erro de conexão. Verifique sua internet.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  const criarEvento = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-    
-    const sucesso = await executarOperacaoEvento(
-      () => api.post('/calendario/', {
-        data_evento: eventFormData.data,
-        id_tipo_data: parseInt(eventFormData.tipo)
-      }),
-      'Erro ao criar evento.'
-    );
-
-    if (sucesso) fecharModal();
-  };
-
-  const atualizarEvento = async (e: React.FormEvent): Promise<void> => {
+  // Função para atualizar evento
+  const atualizarEvento = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedEvent) return;
+    
+    setError('');
+    
+    try {
+      setLoading(true);
+      
+      const eventoData = {
+        data_evento: formData.data,
+        id_tipo_data: parseInt(formData.tipo)
+      };
 
-    const sucesso = await executarOperacaoEvento(
-      () => api.put(`/calendario/${selectedEvent.id_data_evento}`, {
-        data_evento: eventFormData.data,
-        id_tipo_data: parseInt(eventFormData.tipo)
-      }),
-      'Erro ao atualizar evento.'
-    );
-
-    if (sucesso) fecharModal();
+      const response = await api.put(`/calendario/${selectedEvent.id_data_evento}`, eventoData);
+      
+      if (response.status === 200) {
+        await buscarEventos();
+        fecharModal();
+      }
+      
+    } catch (error: any) {
+      console.error('Erro ao atualizar evento:', error);
+      
+      if (error.response) {
+        switch (error.response.status) {
+          case 400:
+            setError('Tipo de data inválido');
+            break;
+          case 403:
+            setError('Você não tem permissão para editar este evento');
+            break;
+          case 409:
+            setError('Já existe um evento para esta data');
+            break;
+          case 401:
+            setError('Token inválido ou expirado');
+            navigate('/login');
+            break;
+          default:
+            setError('Erro ao atualizar evento. Tente novamente.');
+        }
+      } else {
+        setError('Erro de conexão. Verifique sua internet.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const deletarEvento = async (id: number): Promise<void> => {
+  // Função para deletar evento
+  const deletarEvento = async (id: number) => {
     if (!window.confirm('Tem certeza que deseja excluir este evento?')) {
       return;
     }
-
-    const sucesso = await executarOperacaoEvento(
-      () => api.delete(`/calendario/${id}`),
-      'Erro ao excluir evento.'
-    );
-
-    if (sucesso) {
-      fecharModal();
+    
+    try {
+      setLoading(true);
+      const response = await api.delete(`/calendario/${id}`);
+      
+      if (response.status === 200) {
+        await buscarEventos();
+      }
+      
+    } catch (error: any) {
+      console.error('Erro ao deletar evento:', error);
+      
+      if (error.response) {
+        switch (error.response.status) {
+          case 403:
+            setError('Você não tem permissão para excluir este evento');
+            break;
+          case 404:
+            setError('Evento não encontrado');
+            break;
+          case 401:
+            setError('Token inválido ou expirado');
+            navigate('/login');
+            break;
+          default:
+            setError('Erro ao excluir evento. Tente novamente.');
+        }
+      } else {
+        setError('Erro de conexão. Verifique sua internet.');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
-  // ===== Funções de modal =====
-  const inicializarFormulario = (data?: string, evento?: CalendarioEvento): void => {
-    if (evento) {
-      setSelectedEvent(evento);
-      setEventFormData({
-        data: evento.data_evento,
-        tipo: evento.id_tipo_data.toString()
-      });
-    } else {
-      setSelectedEvent(null);
-      setEventFormData({ data: data || '', tipo: '' });
-    }
+  // Função para converter eventos para os arrays de exibição
+  const getDiasNaoLetivos = () => {
+    return eventos
+      .filter(evento => evento.id_tipo_data === 2)
+      .map(evento => evento.data_evento);
   };
 
-  const abrirModal = (): void => {
-    inicializarFormulario();
+  const getFaltas = () => {
+    return eventos
+      .filter(evento => evento.id_tipo_data === 1)
+      .map(evento => evento.data_evento);
+  };
+
+  const getLetivos = () => {
+    return eventos
+      .filter(evento => evento.id_tipo_data === 3)
+      .map(evento => evento.data_evento);
+  };
+
+  const alterarMes = (direcao: number) => {
+    setCurrentDate(new Date(ano, mes + direcao, 1));
+  };
+
+  // Funções para o modal
+  const abrirModal = () => {
+    setSelectedEvent(null);
+    setFormData({
+      data: '',
+      tipo: ''
+    });
     setIsModalOpen(true);
     setError('');
   };
 
-  const abrirModalEditar = async (data: string): Promise<void> => {
+  const abrirModalEditar = async (data: string) => {
     try {
       setLoading(true);
       const evento = await buscarEventoPorData(data);
-      inicializarFormulario(data, evento || undefined);
-      setIsModalOpen(true);
-    } catch {
-      // Sem ação necessária
+      
+      if (evento) {
+        setSelectedEvent(evento);
+        setFormData({
+          data: evento.data_evento,
+          tipo: evento.id_tipo_data.toString()
+        });
+        setIsModalOpen(true);
+      } else {
+        // Se não existe evento, abrir modal para criar
+        setFormData({
+          data: data,
+          tipo: ''
+        });
+        setSelectedEvent(null);
+        setIsModalOpen(true);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar evento:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const fecharModal = (): void => {
+  const fecharModal = () => {
     setIsModalOpen(false);
     setError('');
     setSelectedEvent(null);
-    setEventFormData({ data: '', tipo: '' });
+    setFormData({
+      data: '',
+      tipo: ''
+    });
   };
 
-  // ===== Renderização =====
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setEventFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  const construirEstiloDia = (
-    dataStr: string,
-    dataObj: Date,
-    naoLetivos: string[],
-    faltas: string[],
-    letivos: string[]
-  ): string => {
-    const base = "px-3 py-2 rounded-lg text-white cursor-pointer transition-all duration-200 ";
-    const opacidade = ehDataPassada(dataObj) ? " opacity-50 " : "";
-
-    if (naoLetivos.includes(dataStr)) return base + opacidade + " bg-red-600 hover:bg-red-700";
-    if (faltas.includes(dataStr)) return base + opacidade + " bg-yellow-600 hover:bg-yellow-700";
-    if (letivos.includes(dataStr)) return base + opacidade + " bg-green-600 hover:bg-green-700";
-    return base + opacidade + " hover:bg-gray-700 bg-gray-800";
-  };
-
-  const gerarDias = (): React.ReactNode[] => {
-    const naoLetivos = obterEventosNaoLetivos();
-    const faltas = obterFaltas();
-    const letivos = obterEventosLetivos();
+  const gerarDias = () => {
+    const naoLetivos = getDiasNaoLetivos();
+    const faltas = getFaltas();
+    const letivos = getLetivos();
     
     const dias = [];
     for (let i = 1; i <= diasNoMes; i++) {
-      const dataStr = formatarDataISO(i);
+      const dataStr = `${ano}-${String(mes + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
       const dataObj = new Date(ano, mes, i);
-      const estilo = construirEstiloDia(dataStr, dataObj, naoLetivos, faltas, letivos);
+      const hoje = new Date();
+      hoje.setHours(0, 0, 0, 0);
+
+      let estilo = "px-3 py-2 rounded-lg text-white cursor-pointer transition-all duration-200 ";
+
+      if (dataObj < hoje) {
+        estilo += " opacity-50 ";
+      }
+
+      if (naoLetivos.includes(dataStr)) {
+        estilo += " bg-red-600 hover:bg-red-700";
+      } else if (faltas.includes(dataStr)) {
+        estilo += " bg-yellow-600 hover:bg-yellow-700";
+      } else if (letivos.includes(dataStr)) {
+        estilo += " bg-green-600 hover:bg-green-700";
+      } else {
+        estilo += " hover:bg-gray-700 bg-gray-800";
+      }
 
       dias.push(
         <div 
@@ -300,19 +344,11 @@ export default function Calendario() {
     return dias;
   };
 
-  const obterLabelTipoEvento = (tipoId: number): string => {
-    return TIPOS_EVENTO_LABEL[tipoId as keyof typeof TIPOS_EVENTO_LABEL] || 'Desconhecido';
-  };
-
-  const alterarMes = (direcao: number): void => {
-    setCurrentDate(new Date(ano, mes + direcao, 1));
-  };
-
   // Buscar eventos quando o componente montar
   useEffect(() => {
     buscarEventos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    gerarDias();
+  }, [currentDate]); 
 
   return (
     <div className="min-h-screen bg-[#0d1435] text-white flex flex-col items-center p-6">
@@ -331,7 +367,7 @@ export default function Calendario() {
           <CaretLeft size={24} weight="bold" />
         </button>
         <span className="px-6 py-2 bg-indigo-500 rounded-full font-semibold">
-          {MESES[mes]} {ano}
+          {meses[mes]} {ano}
         </span>
         <button 
           onClick={() => alterarMes(1)}
@@ -401,14 +437,15 @@ export default function Calendario() {
         <div className="mt-8 w-full max-w-4xl">
           <h2 className="text-2xl font-bold mb-4">Seus Eventos</h2>
           <div className="grid gap-2">
-            {eventos.slice(0, DIAS_EXIBICAO_LISTA).map(evento => (
+            {eventos.slice(0, 10).map(evento => (
               <div key={evento.id_data_evento} className="bg-[#2e3348] p-4 rounded-lg flex justify-between items-center">
                 <div>
                   <span className="font-bold">
-                    {formatarDataBR(evento.data_evento)}
+                    {new Date(evento.data_evento).toLocaleDateString('pt-BR')}
                   </span>
                   <span className="ml-4 capitalize">
-                    {obterLabelTipoEvento(evento.id_tipo_data)}
+                    {evento.id_tipo_data === 1 ? 'Falta' : 
+                     evento.id_tipo_data === 2 ? 'Não Letivo' : 'Letivo'}
                   </span>
                 </div>
                 <button
@@ -461,7 +498,7 @@ export default function Calendario() {
                 <input
                   type="date"
                   name="data"
-                  value={eventFormData.data}
+                  value={formData.data}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 bg-[#0d1435] border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   required
@@ -477,7 +514,7 @@ export default function Calendario() {
                 </label>
                 <select
                   name="tipo"
-                  value={eventFormData.tipo}
+                  value={formData.tipo}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 bg-[#0d1435] border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   required
