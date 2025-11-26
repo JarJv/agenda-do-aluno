@@ -8,9 +8,10 @@ interface ToastProps {
     isVisible?: boolean;
     onClose?: () => void;
     duration?: number;
+    position?: 'top' | 'bottom';
 }
 
-export default function Toast({ type, message, isVisible = true, onClose, duration = 5000 }: ToastProps) {
+export default function Toast({ type, message, isVisible = true, onClose, duration = 5000, position = 'top' }: ToastProps) {
     const [progress, setProgress] = useState(100);
 
     useEffect(() => {
@@ -61,7 +62,7 @@ export default function Toast({ type, message, isVisible = true, onClose, durati
             ${bgColor}
             w-full left-0 right-0
             flex flex-col
-            fixed bottom-20
+            ${position === 'bottom' ? 'fixed bottom-0' : 'fixed bottom-20'}
             shadow-2xl border-t border-white/20
             backdrop-blur-sm
             animate-in slide-in-from-bottom fade-in
