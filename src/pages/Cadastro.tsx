@@ -1,8 +1,40 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import api from '../api/axios';
 import logoCps from '../assets/logo-cps.png';
 import logoSite from '../assets/logo-site.jpg';
 
 export default function Cadastro() {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [ra, setRa] = useState('');
+  const [nomeInstituicao, setNomeInstituicao] = useState('');
+  const [username, setUsername] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (senha !== confirmarSenha) {
+      alert('Senhas não conferem');
+      return;
+    }
+    const payload = {
+      ra,
+      nome,
+      email,
+      username,
+      nome_instituicao: nomeInstituicao,
+      senha_hash: senha,
+    };
+    try {
+      const res = await api.post('/usuario', payload);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
    
     <div className="min-h-screen w-full bg-[#010326] flex flex-col items-center px-6 py-8 font-sans overflow-y-auto">
@@ -18,47 +50,47 @@ export default function Cadastro() {
           CADASTRE-SE!
         </h1>
 
-        <form className="flex flex-col gap-4 mb-8">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 mb-8">
           
           {/* Nome Completo */}
           <div className="flex flex-col gap-1">
             <label className="text-white font-bold text-xs">Nome Completo: *</label>
-            <input type="text" className="input-padrao" />
+            <input value={nome} onChange={e => setNome(e.target.value)} type="text" className="input-padrao" />
           </div>
 
           {/* E-mail */}
           <div className="flex flex-col gap-1">
             <label className="text-white font-bold text-xs">E-mail: *</label>
-            <input type="email" className="input-padrao" />
+            <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="input-padrao" />
           </div>
 
           {/* RA e Instituição */}
           <div className="flex gap-3">
             <div className="flex flex-col gap-1 w-1/2">
                 <label className="text-white font-bold text-xs">RA: *</label>
-                <input type="text" className="input-padrao" />
+                <input value={ra} onChange={e => setRa(e.target.value)} type="text" className="input-padrao" />
             </div>
             <div className="flex flex-col gap-1 w-1/2">
                 <label className="text-white font-bold text-xs">Instituição: *</label>
-                <input type="text" className="input-padrao" />
+                <input value={nomeInstituicao} onChange={e => setNomeInstituicao(e.target.value)} type="text" className="input-padrao" />
             </div>
           </div>
 
           {/* Seu Login */}
           <div className="flex flex-col gap-1">
             <label className="text-white font-bold text-xs">Seu Login: *</label>
-            <input type="text" className="input-padrao" />
+            <input value={username} onChange={e => setUsername(e.target.value)} type="text" className="input-padrao" />
           </div>
 
           {/* Senha e Repetir Senha */}
           <div className="flex gap-3">
             <div className="flex flex-col gap-1 w-1/2">
                 <label className="text-white font-bold text-xs">Senha: *</label>
-                <input type="password" className="input-padrao" />
+                <input value={senha} onChange={e => setSenha(e.target.value)} type="password" className="input-padrao" />
             </div>
             <div className="flex flex-col gap-1 w-1/2">
-                <label className="text-white font-bold text-xs">Repetir Senha: *</label>
-                <input type="password" className="input-padrao" />
+              <label className="text-white font-bold text-xs">Repetir Senha: *</label>
+              <input value={confirmarSenha} onChange={e => setConfirmarSenha(e.target.value)} type="password" className="input-padrao" />
             </div>
           </div>
 
@@ -70,7 +102,7 @@ export default function Cadastro() {
             </Link>
             
             {/* Botão Cadastrar */}
-            <button className="w-[50%] bg-[#797FF2] text-white font-bold py-3 rounded-full hover:opacity-90 transition-opacity text-sm">
+            <button type='submit' className="w-[50%] bg-[#797FF2] text-white font-bold py-3 rounded-full hover:opacity-90 transition-opacity text-sm">
               Cadastrar
             </button>
           </div>

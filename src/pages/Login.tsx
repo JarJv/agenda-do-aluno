@@ -1,9 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import api from '../api/axios';
+import { useAuth } from '../context/AuthContext';
 
 import logoCps from '../assets/logo-cps.png';
 import logoSite from '../assets/logo-site.jpg';
 
 export default function Login() {
+  const [loginField, setLoginField] = useState('');
+  const [senha, setSenha] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await api.post('/usuario/login', { username: loginField, senha_hash: senha });
+      await login(response.data.access_token);
+      navigate('/');
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen w-full bg-[#010326] flex flex-col px-8 py-8 font-sans">
       
@@ -31,13 +50,15 @@ export default function Login() {
             Faça Login!
           </h1>
 
-          <form className="flex flex-col gap-5">
+          <form onSubmit={handleLogin} className="flex flex-col gap-5">
             
             {/* Input Login */}
             <div className="flex flex-col gap-1">
               <label className="text-white font-bold text-sm">Seu Login: *</label>
               <input 
                 type="text" 
+                value={loginField}
+                onChange={(e) => setLoginField(e.target.value)}
                 className="w-full bg-transparent border border-[#797FF2] rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:bg-[#141640] transition-colors"
               />
             </div>
@@ -47,12 +68,14 @@ export default function Login() {
               <label className="text-white font-bold text-sm">Sua Senha: *</label>
               <input 
                 type="password" 
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
                 className="w-full bg-transparent border border-[#797FF2] rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:bg-[#141640] transition-colors"
               />
             </div>
 
             {/* Botão Entrar */}
-            <button className="w-2/3 mx-auto bg-[#797FF2] text-white font-bold rounded-full py-3 mt-4 hover:opacity-90 transition-opacity">
+            <button type='submit' className="w-2/3 mx-auto bg-[#797FF2] text-white font-bold rounded-full py-3 mt-4 hover:opacity-90 transition-opacity">
               Entrar
             </button>
 

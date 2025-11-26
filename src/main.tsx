@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './assets/style.css';
+import { AuthProvider } from './context/AuthContext';
 import Menu from './pages/Menu.tsx'
 import Calendario from './pages/Calendario.tsx'
 import Notas from './pages/Notas.tsx';
@@ -87,10 +88,12 @@ let router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className='min-w-screen min-h-screen bg-(--c1)'>
-      {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavTop />}
-      <RouterProvider router={router}/>
-      {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavBottom />}
-    </div>
+    <AuthProvider>
+      <div className='min-w-screen min-h-screen bg-(--c1)'>
+        {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavTop />}
+        <RouterProvider router={router}/>
+        {(location.pathname !== "/login" && location.pathname !== "/cadastro" && location.pathname !== "/") && <NavBottom />}
+      </div>
+    </AuthProvider>
   </StrictMode>,
 )
