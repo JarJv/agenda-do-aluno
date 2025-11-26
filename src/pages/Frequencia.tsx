@@ -1,6 +1,7 @@
 import freqIcon from '../assets/img/freq-icon.png'
 import matIcon from '../assets/img/materiaIcon.png'
 import CirculoProgresso from '../components/circuloProgresso'
+import EmptySection from '../components/EmptySection.tsx';
 
 export default function Frequencia(){
 
@@ -67,7 +68,7 @@ export default function Frequencia(){
                     </ul>
                 </div>
             </div>
-
+            <EmptySection/>
         </section>
     )
 }

@@ -1,6 +1,7 @@
 import { Pencil, Trash, Plus, NotebookPen} from "lucide-react";
 import {Notepad} from "@phosphor-icons/react";
 import BordedButton from "../components/BordedButton"
+import EmptySection from "../components/EmptySection.tsx";
 
 export default function Anotacoes() {
   return (
@@ -41,6 +42,7 @@ export default function Anotacoes() {
 
         <BordedButton>Gravar</BordedButton>
       </div>
+      <EmptySection/>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import {useRef, useState, useEffect} from 'react';
 import {SquarePenIcon} from 'lucide-react'
 import {CaretLeft, CaretRight, Plus} from '@phosphor-icons/react'
 import BordedButton from '../components/BordedButton.tsx';
+import EmptySection from '../components/EmptySection.tsx';
 
 
 export default function Notas(){
@@ -83,6 +84,7 @@ export default function Notas(){
                 </button>
                 <BordedButton>Gravar</BordedButton>
             </section>
+            <EmptySection/>
         </main>
     )
 }

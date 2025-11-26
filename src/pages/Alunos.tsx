@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../assets/style.css";
 import alunoC from "../assets/alunoChapeu.png";
 import { Search } from "lucide-react";
+import EmptySection from "../components/EmptySection.tsx";
 
 // Dados e tipagem (mantidos)
 type Aluno<T> = {
@@ -265,6 +266,7 @@ function Alunos() {
       </section>
       {/* RENDERIZAÇÃO DO MODAL INTEGRADO */}
       <ModalCadastroAluno />
+        <EmptySection/>
     </>
   );
 }

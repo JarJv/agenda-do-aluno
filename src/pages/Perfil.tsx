@@ -2,6 +2,7 @@ import '../assets/style.css'
 import { CircleUserRound } from "lucide-react"
 import { NotePencil } from "@phosphor-icons/react"
 import BordedButton from '../components/BordedButton.tsx'
+import EmptySection from '../components/EmptySection.tsx'
 
 export default function Perfil() {
     return (
@@ -48,6 +49,7 @@ export default function Perfil() {
                     Gravar
                 </BordedButton>
             </div>
+            <EmptySection/>
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { ChevronUp } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import { NotePencilIcon } from '@phosphor-icons/react';
 import { useState } from 'react';
+import EmptySection from '../components/EmptySection.tsx';
 
 export default function Horario(){
     
@@ -110,6 +111,7 @@ export default function Horario(){
                 </button>
                 <BordedButton>Gravar</BordedButton>
             </div> 
+            <EmptySection/>
         </div>
     );
 }

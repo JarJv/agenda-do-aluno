@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Search } from "lucide-react";
 import "../assets/style.css";
 import LosaP from "../assets/losaProfessores.png";
+import EmptySection from "../components/EmptySection.tsx";
 
 type Professor = {
   nome: string;
@@ -260,6 +261,7 @@ function Professores() {
         </div>
       </section>
       <ModalCadastroProfessor />
+        <EmptySection/>
     </>
   );
 }

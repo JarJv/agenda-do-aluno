@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CalendarDots, NotePencil, CaretLeft, CaretRight } from "@phosphor-icons/react";
 import BordedButton from "../components/BordedButton";
+import EmptySection from "../components/EmptySection.tsx";
 
 export default function Calendario() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -100,6 +101,7 @@ export default function Calendario() {
           <NotePencil size={28} />
         </button>
       </div>
+      <EmptySection/>
     </div>
   );
 }

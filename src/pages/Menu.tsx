@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { MenuItem } from "../components/MenuItem";
 import  BordedButton from '../components/BordedButton';
+import EmptySection from "../components/EmptySection.tsx";
 
 export default function Menu() {
   return (
@@ -41,11 +42,12 @@ export default function Menu() {
         <MenuItem icon={UserCircle} label="Perfil" />
       </div>
 
-    <div className="flex justify-end mt-8"> 
+      <div className="flex justify-end mt-8"> 
         <BordedButton>
           Sair
         </BordedButton>
       </div>
+      <EmptySection/>
     </div>
   );
 }

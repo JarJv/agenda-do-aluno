@@ -2,6 +2,7 @@ import '../assets/style.css'
 import {Gear, DownloadSimple, LockOpen, ArrowCounterClockwise} from '@phosphor-icons/react';
 import SettingButton from '../components/SettingButton.tsx';
 import ToastSuccess from '../components/ToastSuccess.tsx';
+import EmptySection from '../components/EmptySection.tsx';
 import { useState } from 'react';
 
 export default function Configuracoes(){
@@ -35,6 +36,7 @@ export default function Configuracoes(){
                     Resetar informações
                 </SettingButton>
             </section>
+            <EmptySection/>
             {toast && <ToastSuccess/>}
         </main>
     )
