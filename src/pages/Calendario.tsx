@@ -331,7 +331,7 @@ export default function Calendario() {
           <CaretLeft size={24} weight="bold" />
         </button>
         <span className="px-6 py-2 bg-indigo-500 rounded-full font-semibold">
-          {meses[mes]} {ano}
+          {MESES[mes]} {ano}
         </span>
         <button 
           onClick={() => alterarMes(1)}
@@ -401,15 +401,14 @@ export default function Calendario() {
         <div className="mt-8 w-full max-w-4xl">
           <h2 className="text-2xl font-bold mb-4">Seus Eventos</h2>
           <div className="grid gap-2">
-            {eventos.slice(0, 10).map(evento => (
+            {eventos.slice(0, DIAS_EXIBICAO_LISTA).map(evento => (
               <div key={evento.id_data_evento} className="bg-[#2e3348] p-4 rounded-lg flex justify-between items-center">
                 <div>
                   <span className="font-bold">
-                    {new Date(evento.data_evento).toLocaleDateString('pt-BR')}
+                    {formatarDataBR(evento.data_evento)}
                   </span>
                   <span className="ml-4 capitalize">
-                    {evento.id_tipo_data === 1 ? 'Falta' : 
-                     evento.id_tipo_data === 2 ? 'Não Letivo' : 'Letivo'}
+                    {obterLabelTipoEvento(evento.id_tipo_data)}
                   </span>
                 </div>
                 <button
@@ -462,7 +461,7 @@ export default function Calendario() {
                 <input
                   type="date"
                   name="data"
-                  value={formData.data}
+                  value={eventFormData.data}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 bg-[#0d1435] border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   required
@@ -478,7 +477,7 @@ export default function Calendario() {
                 </label>
                 <select
                   name="tipo"
-                  value={formData.tipo}
+                  value={eventFormData.tipo}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 bg-[#0d1435] border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   required
