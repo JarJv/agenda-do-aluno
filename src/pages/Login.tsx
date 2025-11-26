@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
+import Toast from '../components/Toast';
 
 import logoCps from '../assets/logo-cps.png';
 import logoSite from '../assets/logo-site.jpg';
@@ -9,6 +10,9 @@ import logoSite from '../assets/logo-site.jpg';
 export default function Login() {
   const [loginField, setLoginField] = useState('');
   const [senha, setSenha] = useState('');
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState<'success' | 'error' | 'loading'>('success');
+  const [showToast, setShowToast] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -17,14 +21,27 @@ export default function Login() {
     try {
       const response = await api.post('/usuario/login', { username: loginField, senha_hash: senha });
       await login(response.data.access_token);
-      navigate('/menu');
+      setToastMessage('Login realizado com sucesso!');
+      setToastType('success');
+      setShowToast(true);
+      setTimeout(() => navigate('/menu'), 1000);
     } catch (error) {
       console.error('Erro ao fazer login:', error);
+      setToastMessage('Erro ao fazer login. Verifique suas credenciais.');
+      setToastType('error');
+      setShowToast(true);
     }
   };
 
   return (
     <div className="min-h-screen w-full bg-[#010326] flex flex-col px-8 py-8 font-sans">
+      
+      <Toast 
+        type={toastType} 
+        message={toastMessage} 
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       
       <header className="w-full flex items-center justify-center mb-10">
          <img 
