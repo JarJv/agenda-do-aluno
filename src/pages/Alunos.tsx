@@ -256,32 +256,31 @@ function Alunos() {
     }
   };
 
-  // FUNÇÃO PARA EXCLUIR ALUNO
-  const handleExcluirAluno = async (id: number, nome: string) => {
-    if (!window.confirm(`Tem certeza que deseja excluir o aluno "${nome}"?`)) {
-      return;
-    }
-
-    try {
-      setExcluindo(id);
-      console.log(`Excluindo aluno ID: ${id}`);
-      
-      const sucesso = await excluirAluno(id);
-      
-      if (sucesso) {
-        // Remove o aluno da lista localmente
-        setAlunos(alunos.filter(aluno => aluno.id !== id));
-        alert('Aluno excluído com sucesso!');
-      } else {
+    // FUNÇÃO PARA EXCLUIR ALUNO
+const handleExcluirAluno = async (id: number, nome: string) => {
+  if (!window.confirm(`Tem certeza que deseja excluir o aluno "${nome}"?`)) {
+    return;
+  }
+  try {
+    setExcluindo(id);
+    console.log(`Excluindo aluno ID: ${id}`);
+  
+    const sucesso = await excluirAluno(id);
+  
+    if (sucesso) {
+      // Remove o aluno da lista localmente
+      setAlunos(alunos.filter(aluno => aluno.id !== id));
+      alert('Aluno excluído com sucesso!');
+    } else {
         alert('Erro ao excluir aluno. Tente novamente.');
       }
-    } catch (error) {
+  } catch (error) {
       console.error('Erro ao excluir aluno:', error);
       alert('Erro ao excluir aluno. Tente novamente.');
     } finally {
-      setExcluindo(null);
-    }
-  };
+        setExcluindo(null);
+      }
+};
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -335,25 +334,12 @@ function Alunos() {
             size={20}
             className="absolute inset-y-0 left-3 my-auto text-white pointer-events-none"
           />
-          <input
-            type="text"
-            placeholder="Pesquisar..."
-            value={pesquisa}
-            onChange={(e) => {
-              setPesquisa(e.target.value);
-              setPage(0);
-            }}
-            className="bg-[#323558] p-4 pl-11 w-full rounded-xl text-white"
-          />
+          <input type="text" placeholder="Pesquisar..." value={pesquisa} onChange={(e) => {setPesquisa(e.target.value); setPage(0);}} className="bg-[#323558] p-4 pl-11 w-full rounded-xl text-white"/>
         </div>
 
-        {carregando && (
-          <p className="text-white text-center">Carregando alunos...</p>
-        )}
+        {carregando && (<p className="text-white text-center">Carregando alunos...</p>)}
 
-        {!carregando && alunosFiltrados.length === 0 && (
-          <p className="text-white text-center">Nenhum aluno encontrado.</p>
-        )}
+        {!carregando && alunosFiltrados.length === 0 && (<p className="text-white text-center">Nenhum aluno encontrado.</p>)}
 
         {!carregando && alunosFiltrados.length > 0 && (
           <>
