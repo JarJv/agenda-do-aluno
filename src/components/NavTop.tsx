@@ -75,7 +75,7 @@ function NavTop() {
                     
                     <div className='flex items-center py-1 gap-2 px-4'>
                         <Notepad size={28} color="#ffffff" />
-                        <a href="/anotacoes"><li className="text-white font-medium">Anotações</li></a>
+                        <a href="/anotacao"><li className="text-white font-medium">Anotações</li></a>
                     </div>
                     
                     <div className='flex items-center py-1 gap-2 px-4'>
@@ -85,7 +85,7 @@ function NavTop() {
                     
                     <div className='flex items-center py-1 gap-2 px-4'>
                         <GearSix size={28} color="#ffffff" />
-                        <a href="/configuracoes"><li className="text-white font-medium">Configurações</li></a>
+                        <a href="/configuracao"><li className="text-white font-medium">Configurações</li></a>
                     </div>
                 </ul>
                 </div>
