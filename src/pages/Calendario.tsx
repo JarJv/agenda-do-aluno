@@ -1,10 +1,30 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { CalendarDots, NotePencil, CaretLeft, CaretRight, X } from "@phosphor-icons/react";
 import BordedButton from "../components/BordedButton";
 import EmptySection from "../components/EmptySection.tsx";
-//import { useAuth } from '../context/AuthContext';
 import api from "../api/axios.ts";
+
+// Constantes
+const TIPO_EVENTO = {
+  FALTA: 1,
+  NAO_LETIVO: 2,
+  LETIVO: 3
+} as const;
+
+const TIPOS_EVENTO_LABEL = {
+  [TIPO_EVENTO.FALTA]: 'Falta',
+  [TIPO_EVENTO.NAO_LETIVO]: 'Não Letivo',
+  [TIPO_EVENTO.LETIVO]: 'Letivo'
+} as const;
+
+const MESES = [
+  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+];
+
+const LIMIT_EVENTOS = 1000;
+const DIAS_EXIBICAO_LISTA = 10;
 
 // Interface para os eventos do calendário
 interface CalendarioEvento {
@@ -12,6 +32,11 @@ interface CalendarioEvento {
   ra: string;
   data_evento: string;
   id_tipo_data: number;
+}
+
+interface EventoFormData {
+  data: string;
+  tipo: string;
 }
 
 export default function Calendario() {
