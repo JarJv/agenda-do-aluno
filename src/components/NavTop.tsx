@@ -5,6 +5,7 @@ import { Menu, X, CircleUserRound } from "lucide-react";
 import { CalendarDots, ClockCountdown, ChalkboardTeacher } from "@phosphor-icons/react";
 import { Student, CheckSquareOffset, NotePencil } from "@phosphor-icons/react";
 import { Notepad, GearSix, House } from "@phosphor-icons/react";
+import { useAuth } from '../context/AuthContext';
 
 const navItems = [
     { icon: House, label: "Menu", href: "/menu", isHome: true },
@@ -22,13 +23,15 @@ const navItems = [
 function NavTop() {
     const [open, setOpen] = useState(false);
     const location = useLocation();
+    const { usuario } = useAuth();
+    const username = usuario?.username || "Usuário";
 
     return (
         <div className="relative w-full">
             <nav className="bg-(--c2) w-full py-4 px-5 flex items-start rounded-none justify-between">
                 <p className="text-white text-lg">Bem-vindo, {""}
                     <label id="nomeAluno" className="font-bold">
-                        Fulana
+                        {username}
                     </label>
                 </p>
                 <button onClick={() => setOpen(true)}>
