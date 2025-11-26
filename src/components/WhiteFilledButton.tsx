@@ -2,7 +2,8 @@ import type React from 'react'
 import '../assets/style.css'
 
 type ButtonProps = {
-    children: React.ReactNode
+    children: React.ReactNode,
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 //botão com fundo branco que ocupa todo o espaço do container, n tem erro só usar igual um botão normal
