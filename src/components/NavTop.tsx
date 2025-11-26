@@ -85,7 +85,7 @@ function NavTop() {
                     
                     <div className='flex items-center py-1 gap-2 justify-center'>
                         <GearSix size={28} color="#ffffff" />
-                        <a href="/configuracoes"><li className="text-white font-medium">Cofigurações</li></a>
+                        <a href="/configuracoes"><li className="text-white font-medium">Configurações</li></a>
                     </div>
                 </ul>
                 </div>
