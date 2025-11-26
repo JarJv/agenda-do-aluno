@@ -300,10 +300,19 @@ export default function Calendario() {
     return dias;
   };
 
+  const obterLabelTipoEvento = (tipoId: number): string => {
+    return TIPOS_EVENTO_LABEL[tipoId as keyof typeof TIPOS_EVENTO_LABEL] || 'Desconhecido';
+  };
+
+  const alterarMes = (direcao: number): void => {
+    setCurrentDate(new Date(ano, mes + direcao, 1));
+  };
+
   // Buscar eventos quando o componente montar
   useEffect(() => {
     buscarEventos();
-  }, [currentDate]); // Recarregar eventos quando mudar o mês
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0d1435] text-white flex flex-col items-center p-6">
