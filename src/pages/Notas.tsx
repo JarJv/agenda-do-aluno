@@ -1,6 +1,9 @@
 import '../assets/style.css'
 import {useRef, useState, useEffect} from 'react';
 import {SquarePenIcon} from 'lucide-react'
+import { NotePencilIcon } from '@phosphor-icons/react';
+import { Trash } from 'lucide-react';
+import { CirclePlus } from 'lucide-react';
 import {CaretLeft, CaretRight, Plus} from '@phosphor-icons/react'
 import BordedButton from '../components/BordedButton.tsx';
 import EmptySection from '../components/EmptySection.tsx';
@@ -79,9 +82,24 @@ export default function Notas(){
                 </div>
             </section>
             <section className='fixed bottom-30 left-0 w-full flex text-white gap-x-2 px-10 font-extrabold items-end justify-between'>
-                <button className='border-2 border-white rounded-full p-1.5 text-white font-bold cursor-pointer'>
-                    <Plus size={24}></Plus>
+            <div className='flex items-center gap-5'>
+
+                {/* Botão de Adicionar */}
+                <button className='cursor-pointer'>
+                    <CirclePlus size={40} color="#fff"/>
                 </button>
+
+                {/* Botão de Editar */}
+               <button className='cursor-pointer'>
+                    <NotePencilIcon size={40} color="#fff"/>
+                </button>
+
+                {/* Botão de Deletar */}
+                <button className='cursor-pointer'>
+                    <Trash size={40} color="#fff"/>
+                </button>
+            </div>
+                {/* Botão de Gravar */}
                 <BordedButton>Gravar</BordedButton>
             </section>
             <EmptySection/>
