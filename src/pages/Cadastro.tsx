@@ -95,7 +95,7 @@ export default function Cadastro() {
           </div>
 
           {/* Botões do Rodapé */}
-          <div className="flex justify-between gap-20 items-center mt-6 gap-4">
+          <div className="flex justify-between gap-20 items-center mt-6">
             {/* Botão Sair */}
             <Link to="/login" className="w-[50%] border border-white text-white text-center font-bold py-3 rounded-full hover:bg-white hover:text-[#010326] transition-colors text-sm">
               Sair
