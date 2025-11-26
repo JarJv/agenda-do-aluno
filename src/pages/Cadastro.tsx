@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../api/axios';
+import Toast from '../components/Toast';
 import logoCps from '../assets/logo-cps.png';
 import logoSite from '../assets/logo-site.jpg';
 
@@ -13,13 +14,50 @@ export default function Cadastro() {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [toast, setToast] = useState<{ type: 'success' | 'error' | 'loading'; message: string; isVisible: boolean }>({
+    type: 'error',
+    message: '',
+    isVisible: false
+  });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (senha !== confirmarSenha) {
-      alert('Senhas não conferem');
+
+    if (!ra || ra.length !== 13 || !/^\d+$/.test(ra)) {
+      setToast({ type: 'error', message: 'RA deve ter exatamente 13 dígitos', isVisible: true });
       return;
     }
+
+    if (!nome || nome.length < 1 || nome.length > 50) {
+      setToast({ type: 'error', message: 'Nome deve ter entre 1 e 50 caracteres', isVisible: true });
+      return;
+    }
+
+    if (!email || email.length > 40 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setToast({ type: 'error', message: 'Email inválido (máx. 40 caracteres)', isVisible: true });
+      return;
+    }
+
+    if (!username || username.length < 1 || username.length > 20) {
+      setToast({ type: 'error', message: 'Username deve ter entre 1 e 20 caracteres', isVisible: true });
+      return;
+    }
+
+    if (!nomeInstituicao || nomeInstituicao.length < 1 || nomeInstituicao.length > 80) {
+      setToast({ type: 'error', message: 'Instituição deve ter entre 1 e 80 caracteres', isVisible: true });
+      return;
+    }
+
+    if (!senha || senha.length < 6) {
+      setToast({ type: 'error', message: 'Senha deve ter no mínimo 6 caracteres', isVisible: true });
+      return;
+    }
+
+    if (senha !== confirmarSenha) {
+      setToast({ type: 'error', message: 'Senhas não conferem', isVisible: true });
+      return;
+    }
+
     const payload = {
       ra,
       nome,
@@ -28,18 +66,28 @@ export default function Cadastro() {
       nome_instituicao: nomeInstituicao,
       senha_hash: senha,
     };
+
     try {
+      setToast({ type: 'loading', message: 'Cadastrando...', isVisible: true });
       const res = await api.post('/usuario', payload);
       console.log(res.data);
-      navigate('/login');
-    } catch (err) {
-      console.error(err);
+      setToast({ type: 'success', message: 'Cadastro realizado com sucesso!', isVisible: true });
+      setTimeout(() => navigate('/login'), 1500);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || 'Erro ao cadastrar. Tente novamente.';
+      setToast({ type: 'error', message: errorMessage, isVisible: true });
     }
   }
 
   return (
-   
-    <div className="min-h-screen w-full bg-[#010326] flex flex-col items-center px-6 py-8 font-sans overflow-y-auto">
+    <>
+      <Toast 
+        type={toast.type} 
+        message={toast.message} 
+        isVisible={toast.isVisible}
+        onClose={() => setToast({ ...toast, isVisible: false })}
+      />
+      <div className="min-h-screen w-full bg-[#010326] flex flex-col items-center px-6 py-8 font-sans overflow-y-auto">
       
       <header className="w-full max-w-2xl flex justify-between items-start mb-6">
          <img src={logoCps} alt="Logo CPS" className="w-19 h-auto object-contain" />
@@ -128,6 +176,7 @@ export default function Cadastro() {
         }
         
       `}</style>
-    </div>
+      </div>
+    </>
   );
 }

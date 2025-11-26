@@ -94,7 +94,6 @@ export default function Toast({ type, message, isVisible = true, onClose, durati
                 )}
             </div>
 
-            {/* Barra de progresso - só aparece para success e error */}
             {!isLoading && (
                 <div className="w-full h-1 bg-white/20">
                     <div
