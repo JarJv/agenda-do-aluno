@@ -1,19 +1,15 @@
 import '../assets/style.css'
 import {Gear, DownloadSimple, LockOpen, ArrowCounterClockwise} from '@phosphor-icons/react';
 import SettingButton from '../components/SettingButton.tsx';
-import ToastSuccess from '../components/ToastSuccess.tsx';
+import Toast from '../components/Toast.tsx';
 import EmptySection from '../components/EmptySection.tsx';
 import { useState } from 'react';
 
 export default function Configuracoes(){
-    const [toast, setToast] = useState(false);
+    const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string; visible: boolean } | null>(null);
 
     function doToast(){
-        setToast(true);
-
-        setTimeout(()=>{
-            setToast(false);
-        }, 3000);
+        setToast({ type: 'success', message: 'Operação realizada com sucesso!', visible: true });
     }
 
     return(
@@ -37,7 +33,14 @@ export default function Configuracoes(){
                 </SettingButton>
             </section>
             <EmptySection/>
-            {toast && <ToastSuccess/>}
+            {toast && (
+                <Toast
+                    type={toast.type}
+                    message={toast.message}
+                    isVisible={toast.visible}
+                    onClose={() => setToast(null)}
+                />
+            )}
         </main>
     )
 }
