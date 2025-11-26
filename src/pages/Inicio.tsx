@@ -12,7 +12,7 @@ export function Inicio() {
         <img 
           src={logoCps} 
           alt="Logo CPS" 
-          className="w-16 h-auto object-contain" 
+          className="w-19 h-auto object-contain" 
         />
       </div>
 
@@ -21,12 +21,12 @@ export function Inicio() {
         <img 
           src={logoSite} 
           alt="Logo do Site" 
-          className="w-16 h-auto rounded-md" 
+          className="w-22 h-auto rounded-md" 
         />
       </div>
 
       <main className="flex-1 flex flex-col items-center justify-center w-full max-w-xs gap-8 mt-10">
-        <div className="w-full flex justify-center">
+        <div className="w-full fixed right-0 top-50 flex justify-end">
           <img 
             src={imgLivros} 
             alt="Estudante segurando livros" 
@@ -34,7 +34,7 @@ export function Inicio() {
           />
         </div>
 
-        <h1 className="text-3xl font-black text-white uppercase tracking-wide text-center leading-tight">
+        <h1 className="text-3xl font-black mt-100 text-white uppercase tracking-wide text-center leading-tight">
           Agenda do<br />Aluno
         </h1>
 

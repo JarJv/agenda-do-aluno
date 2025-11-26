@@ -7,8 +7,8 @@ export default function RecuperarSenha() {
     <div className="min-h-screen w-full bg-[#010326] flex flex-col px-8 py-8 font-sans">
     
       <header className="w-full flex justify-between items-start mb-10">
-         <img src={logoCps} alt="Logo CPS" className="w-16 h-auto object-contain" />
-         <img src={logoSite} alt="Logo Site" className="w-16 h-auto rounded-md" />
+         <img src={logoCps} alt="Logo CPS" className="w-19 h-auto object-contain" />
+         <img src={logoSite} alt="Logo Site" className="w-22 h-auto rounded-md" />
       </header>
 
       <div className="w-full max-w-xs mx-auto">
@@ -17,7 +17,8 @@ export default function RecuperarSenha() {
         </h1>
 
         <p className="text-gray-300 text-sm mb-8">
-            Digite o e-mail cadastrado. Enviaremos um link para você redefinir sua senha.
+            Digite o e-mail cadastrado.<br />
+            Enviaremos um link para você redefinir sua senha.
         </p>
 
         <form className="flex flex-col gap-6">
