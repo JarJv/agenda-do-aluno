@@ -8,13 +8,13 @@ export default function Cadastro() {
     <div className="min-h-screen w-full bg-[#010326] flex flex-col items-center px-6 py-8 font-sans overflow-y-auto">
       
       <header className="w-full max-w-2xl flex justify-between items-start mb-6">
-         <img src={logoCps} alt="Logo CPS" className="w-16 h-auto object-contain" />
-         <img src={logoSite} alt="Logo Site" className="w-16 h-auto rounded-md" />
+         <img src={logoCps} alt="Logo CPS" className="w-19 h-auto object-contain" />
+         <img src={logoSite} alt="Logo Site" className="w-22 h-auto rounded-md" />
       </header>
 
       
       <div className="w-full max-w-lg flex flex-col">
-        <h1 className="text-2xl font-black text-white uppercase mb-6 text-left">
+        <h1 className="text-5xl font-black text-white uppercase mb-6 text-center">
           CADASTRE-SE!
         </h1>
 
@@ -63,14 +63,14 @@ export default function Cadastro() {
           </div>
 
           {/* Botões do Rodapé */}
-          <div className="flex justify-between items-center mt-6 gap-4">
+          <div className="flex justify-between gap-20 items-center mt-6 gap-4">
             {/* Botão Sair */}
-            <Link to="/login" className="w-1/3 border border-white text-white text-center font-bold py-3 rounded-full hover:bg-white hover:text-[#010326] transition-colors text-sm">
+            <Link to="/login" className="w-[50%] border border-white text-white text-center font-bold py-3 rounded-full hover:bg-white hover:text-[#010326] transition-colors text-sm">
               Sair
             </Link>
             
             {/* Botão Cadastrar */}
-            <button className="w-2/3 bg-[#797FF2] text-white font-bold py-3 rounded-full hover:opacity-90 transition-opacity text-sm">
+            <button className="w-[50%] bg-[#797FF2] text-white font-bold py-3 rounded-full hover:opacity-90 transition-opacity text-sm">
               Cadastrar
             </button>
           </div>
@@ -92,6 +92,7 @@ export default function Cadastro() {
         .input-padrao:focus {
           background-color: #141640;
         }
+        
       `}</style>
     </div>
   );
